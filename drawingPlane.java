@@ -31,22 +31,23 @@ public class drawingPlane extends JComponent{
             System.out.println("Drawing point at (" + tempx + ", " + tempy + ")");
         }*/
         for (Vector v : vectors) {
-            Point pone = v.getOne();
-            double onex = pone.getX();
-            double oney = pone.getY();
-            double onez = pone.getZ();
-            double[] oneproj = project.project2D(new double[]{onex,oney,onez,1},75.0,1.0,5.0,100.0);
-            double oneax = oneproj[0];
-            double oneay = oneproj[1];
-            Point ptwo = v.getTwo();
-            double twox = ptwo.getX();
-            double twoy = ptwo.getY();
-            double twoz = ptwo.getZ();
-            double[] twoproj = project.project2D(new double[]{twox,twoy,twoz,1},75.0,1.0,5.0,100.0);            
-            double twoax = twoproj[0];
-            double twoay = twoproj[1];
-            g.drawLine((int)(800*oneax), (int)(800*oneay), (int)(800*twoax), (int)(800*twoay));
-            
+            if (v.getOne().getZ() > 0 && v.getTwo().getZ() > 0) {
+                Point pone = v.getOne();
+                double onex = pone.getX();
+                double oney = pone.getY();
+                double onez = pone.getZ();
+                double[] oneproj = project.project2D(new double[]{onex,oney,onez,1},75.0,1.0,5.0,100.0);
+                double oneax = oneproj[0];
+                double oneay = oneproj[1];
+                Point ptwo = v.getTwo();
+                double twox = ptwo.getX();
+                double twoy = ptwo.getY();
+                double twoz = ptwo.getZ();
+                double[] twoproj = project.project2D(new double[]{twox,twoy,twoz,1},75.0,1.0,5.0,100.0);            
+                double twoax = twoproj[0];
+                double twoay = twoproj[1];
+                g.drawLine((int)(800*oneax), (int)(800*oneay), (int)(800*twoax), (int)(800*twoay));
+            }
         }
     }
     
