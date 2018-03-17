@@ -10,6 +10,8 @@ public class init {
         //frame.setFocusable(false);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //build map
+        int[][][] map = MapGen.generate(2);
         //cube:
         ArrayList<Point> points = new ArrayList<Point>();
         points.add(new Point(-2,-2,6));
@@ -32,8 +34,9 @@ public class init {
         vectors.add(new Vector(points.get(4),points.get(5))); 
         vectors.add(new Vector(points.get(4),points.get(6))); 
         vectors.add(new Vector(points.get(5),points.get(7))); 
-        vectors.add(new Vector(points.get(6),points.get(7))); 
-        drawingPlane plane = new drawingPlane(points, vectors);
+        vectors.add(new Vector(points.get(6),points.get(7)));
+        //build drawing plane
+        drawingPlane plane = new drawingPlane(points, vectors, map);
         frame.add(plane);
         plane.setVisible(true);
         plane.redraw();

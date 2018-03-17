@@ -4,13 +4,13 @@ public class Shapes {
         //Cubes are 4x4x4
         ArrayList<Point> points = new ArrayList<Point>();
         points.add(new Point(x,y,z));
-        points.add(new Point(x+4,y,z));
-        points.add(new Point(x,y+4,z));
-        points.add(new Point(x+4,y+4,z));
-        points.add(new Point(x,y,z+4));
-        points.add(new Point(x+4,y,z+4));
-        points.add(new Point(x,y+4,z+4));
-        points.add(new Point(x+4,y+4,z+4));
+        points.add(new Point(x+1,y,z));
+        points.add(new Point(x,y+1,z));
+        points.add(new Point(x+1,y+1,z));
+        points.add(new Point(x,y,z+1));
+        points.add(new Point(x+1,y,z+1));
+        points.add(new Point(x,y+1,z+1));
+        points.add(new Point(x+1,y+1,z+1));
         ArrayList<Vector> vectors = new ArrayList<Vector>();
         vectors.add(new Vector(points.get(0),points.get(1)));
         vectors.add(new Vector(points.get(0),points.get(4)));        
