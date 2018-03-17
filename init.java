@@ -20,10 +20,24 @@ public class init {
         points.add(new Point(2,-2,10));
         points.add(new Point(-2,2,10));
         points.add(new Point(2,2,10));
-        drawingPlane plane = new drawingPlane(points);
+        ArrayList<Vector> vectors = new ArrayList<Vector>();
+        vectors.add(new Vector(points.get(0),points.get(1)));
+        vectors.add(new Vector(points.get(0),points.get(4)));        
+        vectors.add(new Vector(points.get(0),points.get(2))); 
+        vectors.add(new Vector(points.get(1),points.get(3))); 
+        vectors.add(new Vector(points.get(1),points.get(5))); 
+        vectors.add(new Vector(points.get(2),points.get(3))); 
+        vectors.add(new Vector(points.get(2),points.get(6))); 
+        vectors.add(new Vector(points.get(3),points.get(7))); 
+        vectors.add(new Vector(points.get(4),points.get(5))); 
+        vectors.add(new Vector(points.get(4),points.get(6))); 
+        vectors.add(new Vector(points.get(5),points.get(7))); 
+        vectors.add(new Vector(points.get(6),points.get(7))); 
+        drawingPlane plane = new drawingPlane(points, vectors);
         frame.add(plane);
         plane.setVisible(true);
         plane.redraw();
         frame.addKeyListener(new Listener(plane));
+        frame.getContentPane().setBackground(Color.CYAN);
     }
 }
