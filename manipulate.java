@@ -33,7 +33,6 @@ public class manipulate {
         return result;
 
     }
-    
     public static double[] rotate(double[] vector, char c, double angle) {
         //currently not working
         double[][] matrix = {};
@@ -68,9 +67,5 @@ public class manipulate {
             tempadd = 0;
         }        
         return result;
-        
-        
-    }
-    
-    
+    }  
 }

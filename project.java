@@ -27,7 +27,7 @@ public class project {
         //transform values into 0-1 range
         x = (x+1)/2;
         y = (y+1)/2;
-        System.out.println("(" + x + "," + y + ")");
+        //System.out.println("(" + x + "," + y + ")");
         return(new double[]{x,y});
     }
 }

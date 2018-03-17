@@ -8,7 +8,7 @@ public class Listener extends KeyAdapter {
     boolean spacepress;
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        System.out.println("GOT KEY PRESS:" + key);
+        //System.out.println("GOT KEY PRESS:" + key);
         if (key == KeyEvent.VK_LEFT) {
             current.left();
         }
@@ -30,7 +30,7 @@ public class Listener extends KeyAdapter {
     }
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
-        System.out.println("GOT KEY RELEASE:" + key);
+        //System.out.println("GOT KEY RELEASE:" + key);
         if (key == KeyEvent.VK_LEFT) {
             //current.leftRelease();
         }

@@ -2,14 +2,13 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 public class drawingPlane extends JComponent{
-    ArrayList<Point> points; // ArrayList of currently existed points, unprojected
-    ArrayList<Vector> vectors; // ArrayList of currently existing vectors between points
+    ArrayList<Point> points = new ArrayList<Point>(); // ArrayList of currently existed points, unprojected
+    ArrayList<Vector> vectors = new ArrayList<Vector>(); // ArrayList of currently existing vectors between points
     int[][][] map;
-    public drawingPlane(ArrayList<Point> alp, ArrayList<Vector> alv, int[][][] m) {
+    public drawingPlane(int[][][] m) {
         super();
-        points = alp;
-        vectors = alv;
         map = m;
+        boolean dcheck;
         for (int d=0;d<map.length;d++) {
             for (int w=0;w<map[0].length;w++) {
                 for (int l=0;l<map[0][0].length;l++) {
@@ -64,7 +63,10 @@ public class drawingPlane extends JComponent{
                 double[] twoproj = project.project2D(new double[]{twox,twoy,twoz,1},75.0,1.0,5.0,100.0);            
                 double twoax = twoproj[0];
                 double twoay = twoproj[1];
-                g.drawLine((int)(800*oneax), (int)(800*oneay), (int)(800*twoax), (int)(800*twoay));
+                
+                if (oneax > -50 && oneax < 800 && oneay > 0 && oneay < 800) {
+                    g.drawLine((int)(800*oneax), (int)(800*oneay), (int)(800*twoax), (int)(800*twoay));
+                }
             }
         }
 
