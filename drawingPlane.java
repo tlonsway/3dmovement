@@ -10,6 +10,23 @@ public class drawingPlane extends JComponent{
         points = alp;
         vectors = alv;
         map = m;
+        for (int d=0;d<map.length;d++) {
+            for (int w=0;w<map[0].length;w++) {
+                for (int l=0;l<map[0][0].length;l++) {
+                    if (map[d][w][l] == 1) {
+                        Cube c = Shapes.genCube(w,d,l);
+                        ArrayList<Point> po = c.getPoints();
+                        ArrayList<Vector> ve = c.getVectors();
+                        for (Point p : po) {
+                            points.add(p);
+                        }
+                        for (Vector v : ve) {
+                            vectors.add(v);
+                        }
+                    }
+                }
+            }
+        }        
     }
     
     public void redraw() {
@@ -50,23 +67,7 @@ public class drawingPlane extends JComponent{
                 g.drawLine((int)(800*oneax), (int)(800*oneay), (int)(800*twoax), (int)(800*twoay));
             }
         }
-        for (int d=0;d<map.length;d++) {
-            for (int w=0;w<map[0].length;w++) {
-                for (int l=0;l<map[0][0].length;l++) {
-                    if (map[d][w][l] == 1) {
-                        Cube c = Shapes.genCube(w,d,l);
-                        ArrayList<Point> po = c.getPoints();
-                        ArrayList<Vector> ve = c.getVectors();
-                        for (Point p : po) {
-                            points.add(p);
-                        }
-                        for (Vector v : ve) {
-                            vectors.add(v);
-                        }
-                    }
-                }
-            }
-        }
+
         
         
         
