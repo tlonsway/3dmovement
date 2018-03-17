@@ -21,6 +21,12 @@ public class Listener extends KeyAdapter {
         if (key == KeyEvent.VK_DOWN) {
             current.backwards();
         }
+        if (key == KeyEvent.VK_SPACE) {
+            current.up();
+        }
+        if (key == KeyEvent.VK_CONTROL) {
+            current.down();
+        }
     }
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();

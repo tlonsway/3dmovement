@@ -50,7 +50,6 @@ public class drawingPlane extends JComponent{
             }
         }
     }
-    
     public void forwards() {
         ArrayList<Point> temp = new ArrayList<Point>();
         for (Point p : points) {
@@ -77,7 +76,6 @@ public class drawingPlane extends JComponent{
         points = temp;
         redraw();
     }
-    
     public void backwards() {
         ArrayList<Point> temp = new ArrayList<Point>();
         for (Point p : points) {
@@ -104,7 +102,6 @@ public class drawingPlane extends JComponent{
         points = temp;
         redraw();        
     }
-    
     public void left() {
         ArrayList<Point> temp = new ArrayList<Point>();
         for (Point p : points) {
@@ -131,7 +128,6 @@ public class drawingPlane extends JComponent{
         points = temp;
         redraw();        
     }
-    
     public void right() {
         ArrayList<Point> temp = new ArrayList<Point>();
         for (Point p : points) {
@@ -158,8 +154,56 @@ public class drawingPlane extends JComponent{
         points = temp;
         redraw();        
     }
-    
-    
-    
-    
+    public void up() {
+        ArrayList<Point> temp = new ArrayList<Point>();
+        for (Point p : points) {
+            double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
+            double[] returned = manipulate.translate(vector, 0, .5, 0);
+            double afterx = returned[0];
+            double aftery = returned[1];
+            double afterz = returned[2];
+            temp.add(new Point(afterx,aftery,afterz));
+        }
+        ArrayList<Vector> tempv = new ArrayList<Vector>();
+        for (Vector v : vectors) {
+            Point pone = v.getOne();
+            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
+            double[] oreturned = manipulate.translate(ovector, 0, .5, 0);
+            Point dpone = new Point(oreturned[0],oreturned[1],oreturned[2]);
+            Point ptwo = v.getTwo();
+            double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
+            double[] treturned = manipulate.translate(tvector, 0, .5, 0);
+            Point dptwo = new Point(treturned[0],treturned[1],treturned[2]);            
+            tempv.add(new Vector(dpone,dptwo));
+        }
+        vectors = tempv;         
+        points = temp;
+        redraw();        
+    }    
+    public void down() {
+        ArrayList<Point> temp = new ArrayList<Point>();
+        for (Point p : points) {
+            double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
+            double[] returned = manipulate.translate(vector, 0, -.5, 0);
+            double afterx = returned[0];
+            double aftery = returned[1];
+            double afterz = returned[2];
+            temp.add(new Point(afterx,aftery,afterz));
+        }
+        ArrayList<Vector> tempv = new ArrayList<Vector>();
+        for (Vector v : vectors) {
+            Point pone = v.getOne();
+            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
+            double[] oreturned = manipulate.translate(ovector, 0, -.5, 0);
+            Point dpone = new Point(oreturned[0],oreturned[1],oreturned[2]);
+            Point ptwo = v.getTwo();
+            double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
+            double[] treturned = manipulate.translate(tvector, 0, -.5, 0);
+            Point dptwo = new Point(treturned[0],treturned[1],treturned[2]);            
+            tempv.add(new Vector(dpone,dptwo));
+        }
+        vectors = tempv;         
+        points = temp;
+        redraw();        
+    }        
 }
