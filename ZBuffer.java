@@ -17,6 +17,8 @@ public class ZBuffer {
         ZObject largest = new ZObject();
         int besti = 0;
         while (pobjects.size()>0) {
+            previous = -10000000;
+            besti = 0;
             for (int i=0;i<pobjects.size();i++) {
                 if (pobjects.get(i).getZ() > previous) {
                     previous = pobjects.get(i).getZ();
@@ -27,7 +29,7 @@ public class ZBuffer {
             //System.out.println("i: " + besti);
             //System.out.println("pobjects length: " + pobjects.size());
             //System.out.println("previous: " + previous);
-            pobjects.remove(besti-1);
+            pobjects.remove(besti);
             objects.add(largest);
             System.out.println("SORT PASS COMPLETE");
         }
