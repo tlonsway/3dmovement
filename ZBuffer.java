@@ -9,7 +9,7 @@ public class ZBuffer {
             pobjects.add(new ZObject(v.getOne(), v.getTwo()));
         }
         for (Polygon p : polygons) {
-            pobjects.add(new ZObject(p.getOne(),p.getTwo(),p.getThree()));
+            pobjects.add(new ZObject(p.getOne(),p.getTwo(),p.getThree(),p.getColor()));
         }
         ArrayList<ZObject> objects = new ArrayList<ZObject>();
         double previous = -100000000;

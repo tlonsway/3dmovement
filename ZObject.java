@@ -1,9 +1,11 @@
 import java.util.*;
+import java.awt.*;
 public class ZObject {
     String type;
     OtherPoint p1;
     OtherPoint p2;
     OtherPoint p3;
+    Color c;
     public ZObject() {
     }    
     public ZObject(OtherPoint pone, OtherPoint ptwo) {
@@ -11,11 +13,12 @@ public class ZObject {
         p1 = pone;
         p2 = ptwo;
     }
-    public ZObject(OtherPoint pone, OtherPoint ptwo, OtherPoint pthree) {
+    public ZObject(OtherPoint pone, OtherPoint ptwo, OtherPoint pthree, Color co) {
         type = "Polygon";
         p1 = pone;
         p2 = ptwo;
         p3 = pthree;
+        c = co;
     }
     public double getZ() {
         //FIND POINT WITH FARTHEST Z
@@ -41,7 +44,7 @@ public class ZObject {
         return p3;
     }
     public Polygon getPolygon() {
-        return new Polygon(p1,p2,p3);
+        return new Polygon(p1,p2,p3,c);
     }
     public Vector getVector() {
         return new Vector(p1,p2);

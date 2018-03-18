@@ -111,10 +111,8 @@ public class drawingPlane extends JComponent{
                     double threeay = threeproj[1];
                     int[] xp = new int[]{(int)(800*oneax),(int)(800*twoax),(int)(800*threeax)};
                     int[] yp = new int[]{(int)(800*oneay),(int)(800*twoay),(int)(800*threeay)};
-                    int avy = (int)((oney+twoy+threey)/3);
-                    Color co = new Color((int)(Math.random()*256),(int)(Math.random()*256),(int)(Math.random()*256));
-                    
-                    g.setColor(co);
+                    int avy = (int)((oney+twoy+threey)/3);                  
+                    g.setColor(p.getColor());
                     if (oneax > -50 && oneax < 800 && oneay > 0 && oneay < 800) {
                         g.drawPolygon(xp,yp,3);
                         g.fillPolygon(xp,yp,3);                    
@@ -198,7 +196,7 @@ public class drawingPlane extends JComponent{
         ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
         for (OtherPoint p : p2) {
             double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
-            double[] returned = manipulate.translate(vector, 0, 0, -.5);
+            double[] returned = manipulate.translate(vector, 0, 0, -.1);
             double afterx = returned[0];
             double aftery = returned[1];
             double afterz = returned[2];
@@ -208,11 +206,11 @@ public class drawingPlane extends JComponent{
         for (Vector v : v2) {
             OtherPoint pone = v.getOne();
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, 0, -.5);
+            double[] oreturned = manipulate.translate(ovector, 0, 0, -.1);
             OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
             OtherPoint ptwo = v.getTwo();
             double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
-            double[] treturned = manipulate.translate(tvector, 0, 0, -.5);
+            double[] treturned = manipulate.translate(tvector, 0, 0, -.1);
             OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
             tempv.add(new Vector(dpone,dptwo));
         }
@@ -224,13 +222,13 @@ public class drawingPlane extends JComponent{
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
             double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
             double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, 0, -.5);            
-            double[] twreturned = manipulate.translate(twvector, 0, 0, -.5);
-            double[] trreturned = manipulate.translate(trvector, 0, 0, -.5);
+            double[] oreturned = manipulate.translate(ovector, 0, 0, -.1);            
+            double[] twreturned = manipulate.translate(twvector, 0, 0, -.1);
+            double[] trreturned = manipulate.translate(trvector, 0, 0, -.1);
             OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
             OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
             OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-            Polygon poly = new Polygon(dpone,dptwo,dpthree);
+            Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
             tempo.add(poly);
         }
         polygons = tempo;
@@ -245,7 +243,7 @@ public class drawingPlane extends JComponent{
         ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
         for (OtherPoint p : p2) {
             double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
-            double[] returned = manipulate.translate(vector, 0, 0, .5);
+            double[] returned = manipulate.translate(vector, 0, 0, .1);
             double afterx = returned[0];
             double aftery = returned[1];
             double afterz = returned[2];
@@ -255,11 +253,11 @@ public class drawingPlane extends JComponent{
         for (Vector v : v2) {
             OtherPoint pone = v.getOne();
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, 0, .5);
+            double[] oreturned = manipulate.translate(ovector, 0, 0, .1);
             OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
             OtherPoint ptwo = v.getTwo();
             double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
-            double[] treturned = manipulate.translate(tvector, 0, 0, .5);
+            double[] treturned = manipulate.translate(tvector, 0, 0, .1);
             OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
             tempv.add(new Vector(dpone,dptwo));
         }
@@ -271,13 +269,13 @@ public class drawingPlane extends JComponent{
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
             double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
             double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, 0, .5);            
-            double[] twreturned = manipulate.translate(twvector, 0, 0, .5);
-            double[] trreturned = manipulate.translate(trvector, 0, 0, .5);
+            double[] oreturned = manipulate.translate(ovector, 0, 0, .1);            
+            double[] twreturned = manipulate.translate(twvector, 0, 0, .1);
+            double[] trreturned = manipulate.translate(trvector, 0, 0, .1);
             OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
             OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
             OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-            Polygon poly = new Polygon(dpone,dptwo,dpthree);
+            Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
             tempo.add(poly);
         }
         polygons = tempo;        
@@ -292,7 +290,7 @@ public class drawingPlane extends JComponent{
         ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
         for (OtherPoint p : p2) {
             double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
-            double[] returned = manipulate.translate(vector, .5, 0, 0);
+            double[] returned = manipulate.translate(vector, .1, 0, 0);
             double afterx = returned[0];
             double aftery = returned[1];
             double afterz = returned[2];
@@ -302,11 +300,11 @@ public class drawingPlane extends JComponent{
         for (Vector v : v2) {
             OtherPoint pone = v.getOne();
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, .5, 0, 0);
+            double[] oreturned = manipulate.translate(ovector, .1, 0, 0);
             OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
             OtherPoint ptwo = v.getTwo();
             double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
-            double[] treturned = manipulate.translate(tvector, .5, 0, 0);
+            double[] treturned = manipulate.translate(tvector, .1, 0, 0);
             OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
             tempv.add(new Vector(dpone,dptwo));
         }
@@ -318,13 +316,13 @@ public class drawingPlane extends JComponent{
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
             double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
             double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, .5, 0, 0);            
-            double[] twreturned = manipulate.translate(twvector, .5, 0, 0);
-            double[] trreturned = manipulate.translate(trvector, .5, 0, 0);
+            double[] oreturned = manipulate.translate(ovector, .1, 0, 0);            
+            double[] twreturned = manipulate.translate(twvector, .1, 0, 0);
+            double[] trreturned = manipulate.translate(trvector, .1, 0, 0);
             OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
             OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
             OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-            Polygon poly = new Polygon(dpone,dptwo,dpthree);
+            Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
             tempo.add(poly);
         }
         polygons = tempo;        
@@ -339,7 +337,7 @@ public class drawingPlane extends JComponent{
         ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
         for (OtherPoint p : p2) {
             double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
-            double[] returned = manipulate.translate(vector, -.5, 0, 0);
+            double[] returned = manipulate.translate(vector, -.1, 0, 0);
             double afterx = returned[0];
             double aftery = returned[1];
             double afterz = returned[2];
@@ -349,11 +347,11 @@ public class drawingPlane extends JComponent{
         for (Vector v : v2) {
             OtherPoint pone = v.getOne();
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, -.5, 0, 0);
+            double[] oreturned = manipulate.translate(ovector, -.1, 0, 0);
             OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
             OtherPoint ptwo = v.getTwo();
             double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
-            double[] treturned = manipulate.translate(tvector, -.5, 0, 0);
+            double[] treturned = manipulate.translate(tvector, -.1, 0, 0);
             OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
             tempv.add(new Vector(dpone,dptwo));
         }
@@ -365,13 +363,13 @@ public class drawingPlane extends JComponent{
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
             double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
             double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector,-.5, 0, 0);            
-            double[] twreturned = manipulate.translate(twvector, -.5, 0, 0);
-            double[] trreturned = manipulate.translate(trvector, -.5, 0, 0);
+            double[] oreturned = manipulate.translate(ovector,-.1, 0, 0);            
+            double[] twreturned = manipulate.translate(twvector, -.1, 0, 0);
+            double[] trreturned = manipulate.translate(trvector, -.1, 0, 0);
             OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
             OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
             OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-            Polygon poly = new Polygon(dpone,dptwo,dpthree);
+            Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
             tempo.add(poly);
         }
         polygons = tempo;        
@@ -386,7 +384,7 @@ public class drawingPlane extends JComponent{
         ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
         for (OtherPoint p : p2) {
             double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
-            double[] returned = manipulate.translate(vector, 0, .5, 0);
+            double[] returned = manipulate.translate(vector, 0, .1, 0);
             double afterx = returned[0];
             double aftery = returned[1];
             double afterz = returned[2];
@@ -396,11 +394,11 @@ public class drawingPlane extends JComponent{
         for (Vector v : v2) {
             OtherPoint pone = v.getOne();
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, .5, 0);
+            double[] oreturned = manipulate.translate(ovector, 0, .1, 0);
             OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
             OtherPoint ptwo = v.getTwo();
             double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
-            double[] treturned = manipulate.translate(tvector, 0, .5, 0);
+            double[] treturned = manipulate.translate(tvector, 0, .1, 0);
             OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
             tempv.add(new Vector(dpone,dptwo));
         }
@@ -412,13 +410,13 @@ public class drawingPlane extends JComponent{
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
             double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
             double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, .5, 0);            
-            double[] twreturned = manipulate.translate(twvector, 0, .5, 0);
-            double[] trreturned = manipulate.translate(trvector, 0, .5, 0);
+            double[] oreturned = manipulate.translate(ovector, 0, .1, 0);            
+            double[] twreturned = manipulate.translate(twvector, 0, .1, 0);
+            double[] trreturned = manipulate.translate(trvector, 0, .1, 0);
             OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
             OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
             OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-            Polygon poly = new Polygon(dpone,dptwo,dpthree);
+            Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
             tempo.add(poly);
         }
         polygons = tempo;        
@@ -433,7 +431,7 @@ public class drawingPlane extends JComponent{
         ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
         for (OtherPoint p : p2) {
             double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
-            double[] returned = manipulate.translate(vector, 0, -.5, 0);
+            double[] returned = manipulate.translate(vector, 0, -.1, 0);
             double afterx = returned[0];
             double aftery = returned[1];
             double afterz = returned[2];
@@ -443,11 +441,11 @@ public class drawingPlane extends JComponent{
         for (Vector v : v2) {
             OtherPoint pone = v.getOne();
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, -.5, 0);
+            double[] oreturned = manipulate.translate(ovector, 0, -.1, 0);
             OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
             OtherPoint ptwo = v.getTwo();
             double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
-            double[] treturned = manipulate.translate(tvector, 0, -.5, 0);
+            double[] treturned = manipulate.translate(tvector, 0, -.1, 0);
             OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
             tempv.add(new Vector(dpone,dptwo));
         }
@@ -459,13 +457,13 @@ public class drawingPlane extends JComponent{
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
             double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
             double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, -.5, 0);            
-            double[] twreturned = manipulate.translate(twvector, 0, -.5, 0);
-            double[] trreturned = manipulate.translate(trvector, 0, -.5, 0);
+            double[] oreturned = manipulate.translate(ovector, 0, -.1, 0);            
+            double[] twreturned = manipulate.translate(twvector, 0, -.1, 0);
+            double[] trreturned = manipulate.translate(trvector, 0, -.1, 0);
             OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
             OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
             OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-            Polygon poly = new Polygon(dpone,dptwo,dpthree);
+            Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
             tempo.add(poly);
         }
         polygons = tempo;        
@@ -513,7 +511,7 @@ public class drawingPlane extends JComponent{
             OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
             OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
             OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-            Polygon poly = new Polygon(dpone,dptwo,dpthree);
+            Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
             tempo.add(poly);
         }
         polygons = tempo;        
