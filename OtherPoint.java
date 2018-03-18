@@ -1,8 +1,8 @@
-public class Point {
+public class OtherPoint {
     private double x;
     private double y;
     private double z;
-    public Point(double xx, double yy, double zz) {
+    public OtherPoint(double xx, double yy, double zz) {
         x=xx;
         y=yy;
         z=zz;

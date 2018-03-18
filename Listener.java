@@ -9,16 +9,16 @@ public class Listener extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         //System.out.println("GOT KEY PRESS:" + key);
-        if (key == KeyEvent.VK_LEFT) {
+        if (key == KeyEvent.VK_A) {
             current.left();
         }
-        if (key == KeyEvent.VK_RIGHT) {
+        if (key == KeyEvent.VK_D) {
             current.right();
         }
-        if (key == KeyEvent.VK_UP) {
+        if (key == KeyEvent.VK_W) {
             current.forwards();
         }
-        if (key == KeyEvent.VK_DOWN) {
+        if (key == KeyEvent.VK_S) {
             current.backwards();
         }
         if (key == KeyEvent.VK_SPACE) {
@@ -27,18 +27,18 @@ public class Listener extends KeyAdapter {
         if (key == KeyEvent.VK_CONTROL) {
             current.down();
         }
+        /*if (key == KeyEvent.VK_S) {
+            current.look('x', .1);
+        }
         if (key == KeyEvent.VK_W) {
-            current.look('x');
+            current.look('x', -.1);
         }
         if (key == KeyEvent.VK_A) {
-            current.look('x');
-        }
-        if (key == KeyEvent.VK_S) {
-            current.look('y');
+            current.look('y', .1);
         }
         if (key == KeyEvent.VK_D) {
-            current.look('y');
-        }
+            current.look('y', -.1);
+        }*/
     }
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();

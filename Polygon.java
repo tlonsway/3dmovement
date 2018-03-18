@@ -1,19 +1,19 @@
 public class Polygon {
-    Point p1;
-    Point p2;
-    Point p3;
-    public Polygon(Point pone, Point ptwo, Point pthree) {
+    OtherPoint p1;
+    OtherPoint p2;
+    OtherPoint p3;
+    public Polygon(OtherPoint pone, OtherPoint ptwo, OtherPoint pthree) {
         p1 = pone;
         p2 = ptwo;
         p3 = pthree;
     }
-    public Point getOne() {
+    public OtherPoint getOne() {
         return p1;
     }
-    public Point getTwo() {
+    public OtherPoint getTwo() {
         return p2;
     }
-    public Point getThree() {
+    public OtherPoint getThree() {
         return p3;
     }
 }

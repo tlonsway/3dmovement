@@ -2,15 +2,15 @@ import java.util.*;
 public class Shapes {
     public static Cube genCube(double x, double y, double z) {
         //Cubes are 1x1x1
-        ArrayList<Point> points = new ArrayList<Point>();
-        points.add(new Point(x,y,z));
-        points.add(new Point(x+1,y,z));
-        points.add(new Point(x,y+1,z));
-        points.add(new Point(x+1,y+1,z));
-        points.add(new Point(x,y,z+1));
-        points.add(new Point(x+1,y,z+1));
-        points.add(new Point(x,y+1,z+1));
-        points.add(new Point(x+1,y+1,z+1));
+        ArrayList<OtherPoint> points = new ArrayList<OtherPoint>();
+        points.add(new OtherPoint(x,y,z));
+        points.add(new OtherPoint(x+1,y,z));
+        points.add(new OtherPoint(x,y+1,z));
+        points.add(new OtherPoint(x+1,y+1,z));
+        points.add(new OtherPoint(x,y,z+1));
+        points.add(new OtherPoint(x+1,y,z+1));
+        points.add(new OtherPoint(x,y+1,z+1));
+        points.add(new OtherPoint(x+1,y+1,z+1));
         //GENERATE VECTORS 
         ArrayList<Vector> vectors = new ArrayList<Vector>();
         vectors.add(new Vector(points.get(0),points.get(1)));
