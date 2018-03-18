@@ -37,7 +37,7 @@ public class init {
         vectors.add(new Vector(points.get(5),points.get(7))); 
         vectors.add(new Vector(points.get(6),points.get(7)));*/
         //build drawing plane
-        drawingPlane plane = new drawingPlane(map.getMap(),map.getDepth(),1920,1080,5);
+        drawingPlane plane = new drawingPlane(map.getMap(),map.getDepth(),1920,1080,75);
         frame.add(plane);
         plane.setVisible(true);
         plane.redraw();

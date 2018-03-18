@@ -6,7 +6,7 @@ public class drawingPlane extends JComponent{
     ArrayList<Vector> vectors = new ArrayList<Vector>(); // ArrayList of currently existing vectors between points
     ArrayList<Polygon> polygons = new ArrayList<Polygon>();
     ArrayList<Cube> cubes = new ArrayList<Cube>();
-    //ARRAY FOR ZOBJECTS 
+    ArrayList<ZObject> pzobjects = new ArrayList<ZObject>();
     int[][][] map;
     int[][] depth;
     int WINDOW_WIDTH;
@@ -27,19 +27,21 @@ public class drawingPlane extends JComponent{
                 for (int l=0;l<map[0][0].length;l++) {
                     if (map[d][w][l] == 1) {
                         Cube c = Shapes.genCube(w,d,l);
-                        cubes.add(c);
-                        ArrayList<OtherPoint> po = c.getPoints();
-                        ArrayList<Vector> ve = c.getVectors();
-                        ArrayList<Polygon> pol = c.getPolygons();
-                        for (OtherPoint p : po) {
-                            points.add(p);
-                        }
-                        for (Vector v : ve) {
-                            vectors.add(v);
-                        }
-                        for (Polygon p : pol) {
-                            polygons.add(p);
-                        }
+                        //cubes.add(c);
+                        //ArrayList<OtherPoint> po = c.getPoints();
+                        pzobjects.addAll(c.getZObjects());
+                        //ArrayList<Vector> ve = c.getVectors();
+                        //ArrayList<Polygon> pol = c.getPolygons();
+                        //for (OtherPoint p : po) {
+                        //    points.add(p);
+                        //}
+                        //for (Vector v : ve) {
+                        //    vectors.add(v);
+                        //}
+                        //for (Polygon p : pol) {
+                        //    polygons.add(p);
+                        //}
+                        
                     }
                 }
             }
@@ -70,7 +72,7 @@ public class drawingPlane extends JComponent{
         //ZBUFFER
         //SORT EDGES AND POLYGONS BY Z
         //long startTime = System.nanoTime();
-        ArrayList<ZObject> zobjects = ZBuffer.sortZ(vectors, polygons);
+        ArrayList<ZObject> zobjects = ZBuffer.sortZ(pzobjects);
         for (ZObject z : zobjects) {
             if (z.getType().equals("Vector")) {
                 g.setColor(Color.BLACK);

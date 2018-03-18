@@ -3,10 +3,17 @@ public class Cube {
     ArrayList<OtherPoint> points;
     ArrayList<Vector> vectors;
     ArrayList<Polygon> polygons;
+    ArrayList<ZObject> zobjects;
     public Cube(ArrayList<OtherPoint> p, ArrayList<Vector> v, ArrayList<Polygon> po) {
         points = p;
         vectors = v;
         polygons = po;
+        for (Vector ve : vectors) {
+            zobjects.add(new ZObject(ve.getOne(), ve.getTwo()));
+        }
+        for (Polygon pol : polygons) {
+            zobjects.add(new ZObject(pol.getOne(),pol.getTwo(),pol.getThree(),pol.getColor()));
+        }
     }
     public void setPoints(ArrayList<OtherPoint> p) {
         points = p;
@@ -25,5 +32,8 @@ public class Cube {
     }
     public ArrayList<Polygon> getPolygons() {
         return polygons;
+    }
+    public ArrayList<ZObject> getZObjects() {
+        return zobjects;
     }
 }

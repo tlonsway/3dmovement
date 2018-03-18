@@ -1,17 +1,18 @@
 import java.util.*;
 public class ZBuffer {
-    public static ArrayList<ZObject> sortZ(ArrayList<Vector> vectors, ArrayList<Polygon> polygons) {
+    public static ArrayList<ZObject> sortZ(ArrayList<ZObject> pobjects) {
         //long startTime = System.nanoTime();
-        ArrayList<ZObject> pobjects = new ArrayList<ZObject>();
+        //ArrayList<ZObject> pobjects = new ArrayList<ZObject>();
         //System.out.println("vectors: " + vectors.size());
         //System.out.println("polygons: " + polygons.size());
-        
+        /*
         for (Vector v : vectors) {
             pobjects.add(new ZObject(v.getOne(), v.getTwo()));
         }
         for (Polygon p : polygons) {
             pobjects.add(new ZObject(p.getOne(),p.getTwo(),p.getThree(),p.getColor()));
         }
+        */
         ArrayList<ZObject> objects = new ArrayList<ZObject>();
         double previous = -100000000;
         //double greatestz;
