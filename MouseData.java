@@ -11,6 +11,7 @@ public class MouseData implements Runnable {
         double y;
         try {
             rb = new Robot();
+            rb.mouseMove(400,400);            
             while (true) {
                 Thread.sleep(10);
                 x = MouseInfo.getPointerInfo().getLocation().getX();
