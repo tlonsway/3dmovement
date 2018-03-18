@@ -1,6 +1,7 @@
 import java.util.*;
 public class ZBuffer {
     public static ArrayList<ZObject> sortZ(ArrayList<Vector> vectors, ArrayList<Polygon> polygons) {
+        //long startTime = System.nanoTime();
         ArrayList<ZObject> pobjects = new ArrayList<ZObject>();
         //System.out.println("vectors: " + vectors.size());
         //System.out.println("polygons: " + polygons.size());
@@ -33,6 +34,7 @@ public class ZBuffer {
             objects.add(largest);
             //System.out.println("SORT PASS COMPLETE");
         }
+        //System.out.println("ZBuffer sort took " + (System.nanoTime()-startTime));
         return objects;
     } 
 }

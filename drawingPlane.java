@@ -6,10 +6,19 @@ public class drawingPlane extends JComponent{
     ArrayList<Vector> vectors = new ArrayList<Vector>(); // ArrayList of currently existing vectors between points
     ArrayList<Polygon> polygons = new ArrayList<Polygon>();
     ArrayList<Cube> cubes = new ArrayList<Cube>();
+    //ARRAY FOR ZOBJECTS 
     int[][][] map;
     int[][] depth;
-    public drawingPlane(int[][][] m, int[][] de) {
+    int WINDOW_WIDTH;
+    int WINDOW_HEIGHT;
+    int FOV;
+    int ASPECT;
+    public drawingPlane(int[][][] m, int[][] de, int width, int height, int fo) {
         super();
+        WINDOW_WIDTH = width;
+        WINDOW_HEIGHT = height;
+        FOV = fo;
+        ASPECT = WINDOW_WIDTH/WINDOW_HEIGHT;
         map = m;
         depth = de;
         boolean dcheck;
@@ -60,6 +69,7 @@ public class drawingPlane extends JComponent{
         
         //ZBUFFER
         //SORT EDGES AND POLYGONS BY Z
+        //long startTime = System.nanoTime();
         ArrayList<ZObject> zobjects = ZBuffer.sortZ(vectors, polygons);
         for (ZObject z : zobjects) {
             if (z.getType().equals("Vector")) {
@@ -70,18 +80,18 @@ public class drawingPlane extends JComponent{
                     double onex = pone.getX();
                     double oney = pone.getY();
                     double onez = pone.getZ();
-                    double[] oneproj = project.project2D(new double[]{onex,oney,onez,1},75.0,1.0,5.0,100.0);
+                    double[] oneproj = project.project2D(new double[]{onex,oney,onez,1},FOV,ASPECT,5.0,100.0);
                     double oneax = oneproj[0];
                     double oneay = oneproj[1];
                     OtherPoint ptwo = v.getTwo();
                     double twox = ptwo.getX();
                     double twoy = ptwo.getY();
                     double twoz = ptwo.getZ();
-                    double[] twoproj = project.project2D(new double[]{twox,twoy,twoz,1},75.0,1.0,5.0,100.0);            
+                    double[] twoproj = project.project2D(new double[]{twox,twoy,twoz,1},FOV,ASPECT,5.0,100.0);            
                     double twoax = twoproj[0];
                     double twoay = twoproj[1];
                     if (oneax > -50 && oneax < 800 && oneay > 0 && oneay < 800) {
-                        g.drawLine((int)(800*oneax), (int)(800*oneay), (int)(800*twoax), (int)(800*twoay));
+                        g.drawLine((int)(WINDOW_WIDTH*oneax), (int)(WINDOW_HEIGHT*oneay), (int)(WINDOW_WIDTH*twoax), (int)(WINDOW_HEIGHT*twoay));
                     }
                 }                
             }
@@ -92,25 +102,25 @@ public class drawingPlane extends JComponent{
                     double onex = pone.getX();
                     double oney = pone.getY();
                     double onez = pone.getZ();
-                    double[] oneproj = project.project2D(new double[]{onex,oney,onez,1},75.0,1.0,5.0,100.0);
+                    double[] oneproj = project.project2D(new double[]{onex,oney,onez,1},FOV,ASPECT,5.0,100.0);
                     double oneax = oneproj[0];
                     double oneay = oneproj[1];
                     OtherPoint ptwo = p.getTwo();
                     double twox = ptwo.getX();
                     double twoy = ptwo.getY();
                     double twoz = ptwo.getZ();
-                    double[] twoproj = project.project2D(new double[]{twox,twoy,twoz,1},75.0,1.0,5.0,100.0);            
+                    double[] twoproj = project.project2D(new double[]{twox,twoy,twoz,1},FOV,ASPECT,5.0,100.0);           
                     double twoax = twoproj[0];
                     double twoay = twoproj[1];
                     OtherPoint pthree = p.getThree();
                     double threex = pthree.getX();
                     double threey = pthree.getY();
                     double threez = pthree.getZ();
-                    double[] threeproj = project.project2D(new double[]{threex,threey,threez,1},75.0,1.0,5.0,100.0);
+                    double[] threeproj = project.project2D(new double[]{threex,threey,threez,1},FOV,ASPECT,5.0,100.0);
                     double threeax = threeproj[0];
                     double threeay = threeproj[1];
-                    int[] xp = new int[]{(int)(800*oneax),(int)(800*twoax),(int)(800*threeax)};
-                    int[] yp = new int[]{(int)(800*oneay),(int)(800*twoay),(int)(800*threeay)};
+                    int[] xp = new int[]{(int)(WINDOW_WIDTH*oneax),(int)(WINDOW_WIDTH*twoax),(int)(WINDOW_WIDTH*threeax)};
+                    int[] yp = new int[]{(int)(WINDOW_HEIGHT*oneay),(int)(WINDOW_HEIGHT*twoay),(int)(WINDOW_HEIGHT*threeay)};
                     int avy = (int)((oney+twoy+threey)/3);                  
                     g.setColor(p.getColor());
                     if (oneax > -50 && oneax < 800 && oneay > 0 && oneay < 800) {
@@ -120,7 +130,7 @@ public class drawingPlane extends JComponent{
                 }                   
             }
         }
-        
+        //System.out.println("Frame generation took " + (System.nanoTime()-startTime));
         
         
         

@@ -17,8 +17,8 @@ public class MouseData implements Runnable {
                 x = MouseInfo.getPointerInfo().getLocation().getX();
                 y = MouseInfo.getPointerInfo().getLocation().getY();
                 if (x-400 != 0 | y-400 != 0) {
-                    plane.look('y', -(x-400)/20);
-                    plane.look('x', (y-400)/20);
+                    plane.look('y', -(x-400)/200);
+                    plane.look('x', (y-400)/200);
                 }
                 rb.mouseMove(400,400);
             }

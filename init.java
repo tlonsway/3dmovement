@@ -7,12 +7,12 @@ public class init {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Game window");
         frame.setVisible(true);
-        frame.setSize(1000, 1000);
+        frame.setSize(1920, 1080);
         //frame.setFocusable(false);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //build map
-        Map map = MapGen.generate(15);
+        Map map = MapGen.generate(20);
         //cube:
         /*ArrayList<Point> points = new ArrayList<Point>();
         points.add(new Point(-2,-2,6));
@@ -37,7 +37,7 @@ public class init {
         vectors.add(new Vector(points.get(5),points.get(7))); 
         vectors.add(new Vector(points.get(6),points.get(7)));*/
         //build drawing plane
-        drawingPlane plane = new drawingPlane(map.getMap(),map.getDepth());
+        drawingPlane plane = new drawingPlane(map.getMap(),map.getDepth(),1920,1080,5);
         frame.add(plane);
         plane.setVisible(true);
         plane.redraw();
@@ -50,5 +50,7 @@ public class init {
         BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
         Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
         frame.getContentPane().setCursor(blankCursor);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        frame.setUndecorated(true);
     }
 }
