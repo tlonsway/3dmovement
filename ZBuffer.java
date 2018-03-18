@@ -2,8 +2,8 @@ import java.util.*;
 public class ZBuffer {
     public static ArrayList<ZObject> sortZ(ArrayList<Vector> vectors, ArrayList<Polygon> polygons) {
         ArrayList<ZObject> pobjects = new ArrayList<ZObject>();
-        System.out.println("vectors: " + vectors.size());
-        System.out.println("polygons: " + polygons.size());
+        //System.out.println("vectors: " + vectors.size());
+        //System.out.println("polygons: " + polygons.size());
         
         for (Vector v : vectors) {
             pobjects.add(new ZObject(v.getOne(), v.getTwo()));
@@ -31,7 +31,7 @@ public class ZBuffer {
             //System.out.println("previous: " + previous);
             pobjects.remove(besti);
             objects.add(largest);
-            System.out.println("SORT PASS COMPLETE");
+            //System.out.println("SORT PASS COMPLETE");
         }
         return objects;
     } 

@@ -1,5 +1,5 @@
 public class MapGen {
-    public static int[][][] generate(int size) {
+    public static Map generate(int size) {
         int[][][] map = new int[5][size][size];
         int[][] depth = new int[size][size];
         int previous=1;
@@ -32,6 +32,6 @@ public class MapGen {
             }
             System.out.println();
         }*/
-        return map;
+        return new Map(map, depth);
     }
 }

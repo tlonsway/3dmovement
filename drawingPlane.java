@@ -7,9 +7,11 @@ public class drawingPlane extends JComponent{
     ArrayList<Polygon> polygons = new ArrayList<Polygon>();
     ArrayList<Cube> cubes = new ArrayList<Cube>();
     int[][][] map;
-    public drawingPlane(int[][][] m) {
+    int[][] depth;
+    public drawingPlane(int[][][] m, int[][] de) {
         super();
         map = m;
+        depth = de;
         boolean dcheck;
         for (int d=0;d<map.length;d++) {
             for (int w=0;w<map[0].length;w++) {
@@ -61,7 +63,7 @@ public class drawingPlane extends JComponent{
         ArrayList<ZObject> zobjects = ZBuffer.sortZ(vectors, polygons);
         for (ZObject z : zobjects) {
             if (z.getType().equals("Vector")) {
-                g.setColor(Color.RED);
+                g.setColor(Color.BLACK);
                 Vector v = z.getVector();
                 if (v.getOne().getZ() > 0 && v.getTwo().getZ() > 0) {
                     OtherPoint pone = v.getOne();
@@ -84,7 +86,6 @@ public class drawingPlane extends JComponent{
                 }                
             }
             if (z.getType().equals("Polygon")) {
-                g.setColor(Color.GREEN);
                 Polygon p = z.getPolygon();
                 if (p.getOne().getZ() > 0 && p.getTwo().getZ() > 0 && p.getThree().getZ() > 0) {
                     OtherPoint pone = p.getOne();
@@ -110,7 +111,10 @@ public class drawingPlane extends JComponent{
                     double threeay = threeproj[1];
                     int[] xp = new int[]{(int)(800*oneax),(int)(800*twoax),(int)(800*threeax)};
                     int[] yp = new int[]{(int)(800*oneay),(int)(800*twoay),(int)(800*threeay)};
-                    g.setColor(Color.GREEN);
+                    int avy = (int)((oney+twoy+threey)/3);
+                    Color co = new Color((int)(Math.random()*256),(int)(Math.random()*256),(int)(Math.random()*256));
+                    
+                    g.setColor(co);
                     if (oneax > -50 && oneax < 800 && oneay > 0 && oneay < 800) {
                         g.drawPolygon(xp,yp,3);
                         g.fillPolygon(xp,yp,3);                    

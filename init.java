@@ -12,7 +12,7 @@ public class init {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //build map
-        int[][][] map = MapGen.generate(5);
+        Map map = MapGen.generate(15);
         //cube:
         /*ArrayList<Point> points = new ArrayList<Point>();
         points.add(new Point(-2,-2,6));
@@ -37,7 +37,7 @@ public class init {
         vectors.add(new Vector(points.get(5),points.get(7))); 
         vectors.add(new Vector(points.get(6),points.get(7)));*/
         //build drawing plane
-        drawingPlane plane = new drawingPlane(map);
+        drawingPlane plane = new drawingPlane(map.getMap(),map.getDepth());
         frame.add(plane);
         plane.setVisible(true);
         plane.redraw();
