@@ -27,6 +27,18 @@ public class Listener extends KeyAdapter {
         if (key == KeyEvent.VK_CONTROL) {
             current.down();
         }
+        if (key == KeyEvent.VK_W) {
+            current.look('x');
+        }
+        if (key == KeyEvent.VK_A) {
+            current.look('x');
+        }
+        if (key == KeyEvent.VK_S) {
+            current.look('y');
+        }
+        if (key == KeyEvent.VK_D) {
+            current.look('y');
+        }
     }
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();

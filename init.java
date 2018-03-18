@@ -41,6 +41,7 @@ public class init {
         plane.setVisible(true);
         plane.redraw();
         frame.addKeyListener(new Listener(plane));
-        frame.getContentPane().setBackground(Color.CYAN);
+        //frame.getContentPane().setBackground(Color.CYAN);
+        frame.getContentPane().setBackground(Color.yellow);
     }
 }

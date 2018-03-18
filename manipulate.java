@@ -34,7 +34,6 @@ public class manipulate {
 
     }
     public static double[] rotate(double[] vector, char c, double angle) {
-        //currently not working
         double[][] matrix = {};
         //vector = new double[]{vector[0],vector[1],vector[2]};
         if (c=='x') {
@@ -44,17 +43,17 @@ public class manipulate {
                                    {0,0,0,0}};           
         }
         if (c=='y') {
-            //double[][] matrix = new double[][]{{x,0,0,0},
-                                               //{0,y,0,0},
-                                               //{0,0,z,0},
-                                               //{0,0,0,1}};              
+            matrix = new double[][]{{Math.cos(angle),0,Math.sin(angle),0},
+                                   {0,1,0,0},
+                                   {-(Math.sin(angle)),0,Math.cos(angle),0},
+                                   {0,0,0,0}};              
             
         }
         if (c=='z') {
-            //double[][] matrix = new double[][]{{x,0,0,0},
-                                       //        {0,y,0,0},
-                                       //        {0,0,z,0},
-                                       //        {0,0,0,1}};              
+            matrix = new double[][]{{Math.cos(angle),-(Math.sin(angle)),0,0},
+                                   {Math.sin(angle),Math.cos(angle),0,0},
+                                   {0,0,1,0},
+                                   {0,0,0,0}};              
             
         }
         double tempadd = 0;
