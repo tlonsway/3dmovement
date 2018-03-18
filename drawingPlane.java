@@ -116,8 +116,11 @@ public class drawingPlane extends JComponent{
         }
     }
     public void forwards() {
+        ArrayList<OtherPoint> p2 = points;
+        ArrayList<Vector> v2 = vectors;
+        ArrayList<Polygon> pol2 = polygons;           
         ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
-        for (OtherPoint p : points) {
+        for (OtherPoint p : p2) {
             double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
             double[] returned = manipulate.translate(vector, 0, 0, -.5);
             double afterx = returned[0];
@@ -126,7 +129,7 @@ public class drawingPlane extends JComponent{
             temp.add(new OtherPoint(afterx,aftery,afterz));
         }
         ArrayList<Vector> tempv = new ArrayList<Vector>();
-        for (Vector v : vectors) {
+        for (Vector v : v2) {
             OtherPoint pone = v.getOne();
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
             double[] oreturned = manipulate.translate(ovector, 0, 0, -.5);
@@ -138,7 +141,7 @@ public class drawingPlane extends JComponent{
             tempv.add(new Vector(dpone,dptwo));
         }
         ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        for (Polygon p : polygons) {
+        for (Polygon p : pol2) {
             OtherPoint pone = p.getOne();
             OtherPoint ptwo = p.getTwo();
             OtherPoint pthree = p.getThree();
@@ -160,8 +163,11 @@ public class drawingPlane extends JComponent{
         redraw();
     }
     public void backwards() {
+        ArrayList<OtherPoint> p2 = points;
+        ArrayList<Vector> v2 = vectors;
+        ArrayList<Polygon> pol2 = polygons;           
         ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
-        for (OtherPoint p : points) {
+        for (OtherPoint p : p2) {
             double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
             double[] returned = manipulate.translate(vector, 0, 0, .5);
             double afterx = returned[0];
@@ -170,7 +176,7 @@ public class drawingPlane extends JComponent{
             temp.add(new OtherPoint(afterx,aftery,afterz));
         }
         ArrayList<Vector> tempv = new ArrayList<Vector>();
-        for (Vector v : vectors) {
+        for (Vector v : v2) {
             OtherPoint pone = v.getOne();
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
             double[] oreturned = manipulate.translate(ovector, 0, 0, .5);
@@ -182,7 +188,7 @@ public class drawingPlane extends JComponent{
             tempv.add(new Vector(dpone,dptwo));
         }
         ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        for (Polygon p : polygons) {
+        for (Polygon p : pol2) {
             OtherPoint pone = p.getOne();
             OtherPoint ptwo = p.getTwo();
             OtherPoint pthree = p.getThree();
@@ -204,8 +210,11 @@ public class drawingPlane extends JComponent{
         redraw();        
     }
     public void left() {
+        ArrayList<OtherPoint> p2 = points;
+        ArrayList<Vector> v2 = vectors;
+        ArrayList<Polygon> pol2 = polygons;           
         ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
-        for (OtherPoint p : points) {
+        for (OtherPoint p : p2) {
             double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
             double[] returned = manipulate.translate(vector, .5, 0, 0);
             double afterx = returned[0];
@@ -214,7 +223,7 @@ public class drawingPlane extends JComponent{
             temp.add(new OtherPoint(afterx,aftery,afterz));
         }
         ArrayList<Vector> tempv = new ArrayList<Vector>();
-        for (Vector v : vectors) {
+        for (Vector v : v2) {
             OtherPoint pone = v.getOne();
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
             double[] oreturned = manipulate.translate(ovector, .5, 0, 0);
@@ -226,7 +235,7 @@ public class drawingPlane extends JComponent{
             tempv.add(new Vector(dpone,dptwo));
         }
         ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        for (Polygon p : polygons) {
+        for (Polygon p : pol2) {
             OtherPoint pone = p.getOne();
             OtherPoint ptwo = p.getTwo();
             OtherPoint pthree = p.getThree();
@@ -248,8 +257,11 @@ public class drawingPlane extends JComponent{
         redraw();        
     }
     public void right() {
+        ArrayList<OtherPoint> p2 = points;
+        ArrayList<Vector> v2 = vectors;
+        ArrayList<Polygon> pol2 = polygons;           
         ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
-        for (OtherPoint p : points) {
+        for (OtherPoint p : p2) {
             double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
             double[] returned = manipulate.translate(vector, -.5, 0, 0);
             double afterx = returned[0];
@@ -258,7 +270,7 @@ public class drawingPlane extends JComponent{
             temp.add(new OtherPoint(afterx,aftery,afterz));
         }
         ArrayList<Vector> tempv = new ArrayList<Vector>();
-        for (Vector v : vectors) {
+        for (Vector v : v2) {
             OtherPoint pone = v.getOne();
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
             double[] oreturned = manipulate.translate(ovector, -.5, 0, 0);
@@ -270,7 +282,7 @@ public class drawingPlane extends JComponent{
             tempv.add(new Vector(dpone,dptwo));
         }
         ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        for (Polygon p : polygons) {
+        for (Polygon p : pol2) {
             OtherPoint pone = p.getOne();
             OtherPoint ptwo = p.getTwo();
             OtherPoint pthree = p.getThree();
@@ -292,8 +304,11 @@ public class drawingPlane extends JComponent{
         redraw();        
     }
     public void up() {
+        ArrayList<OtherPoint> p2 = points;
+        ArrayList<Vector> v2 = vectors;
+        ArrayList<Polygon> pol2 = polygons;          
         ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
-        for (OtherPoint p : points) {
+        for (OtherPoint p : p2) {
             double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
             double[] returned = manipulate.translate(vector, 0, .5, 0);
             double afterx = returned[0];
@@ -302,7 +317,7 @@ public class drawingPlane extends JComponent{
             temp.add(new OtherPoint(afterx,aftery,afterz));
         }
         ArrayList<Vector> tempv = new ArrayList<Vector>();
-        for (Vector v : vectors) {
+        for (Vector v : v2) {
             OtherPoint pone = v.getOne();
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
             double[] oreturned = manipulate.translate(ovector, 0, .5, 0);
@@ -314,7 +329,7 @@ public class drawingPlane extends JComponent{
             tempv.add(new Vector(dpone,dptwo));
         }
         ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        for (Polygon p : polygons) {
+        for (Polygon p : pol2) {
             OtherPoint pone = p.getOne();
             OtherPoint ptwo = p.getTwo();
             OtherPoint pthree = p.getThree();
@@ -336,8 +351,11 @@ public class drawingPlane extends JComponent{
         redraw();        
     }    
     public void down() {
+        ArrayList<OtherPoint> p2 = points;
+        ArrayList<Vector> v2 = vectors;
+        ArrayList<Polygon> pol2 = polygons;        
         ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
-        for (OtherPoint p : points) {
+        for (OtherPoint p : p2) {
             double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
             double[] returned = manipulate.translate(vector, 0, -.5, 0);
             double afterx = returned[0];
@@ -346,7 +364,7 @@ public class drawingPlane extends JComponent{
             temp.add(new OtherPoint(afterx,aftery,afterz));
         }
         ArrayList<Vector> tempv = new ArrayList<Vector>();
-        for (Vector v : vectors) {
+        for (Vector v : v2) {
             OtherPoint pone = v.getOne();
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
             double[] oreturned = manipulate.translate(ovector, 0, -.5, 0);
@@ -358,7 +376,7 @@ public class drawingPlane extends JComponent{
             tempv.add(new Vector(dpone,dptwo));
         }
         ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        for (Polygon p : polygons) {
+        for (Polygon p : pol2) {
             OtherPoint pone = p.getOne();
             OtherPoint ptwo = p.getTwo();
             OtherPoint pthree = p.getThree();
@@ -380,9 +398,12 @@ public class drawingPlane extends JComponent{
         redraw();        
     }
     public void look(char ax, double angle) {
+        ArrayList<OtherPoint> p2 = points;
+        ArrayList<Vector> v2 = vectors;
+        ArrayList<Polygon> pol2 = polygons;
         char axis = ax;
         ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
-        for (OtherPoint p : points) {
+        for (OtherPoint p : p2) {
             double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
             double[] returned = manipulate.rotate(vector, axis, angle);
             double afterx = returned[0];
@@ -391,7 +412,7 @@ public class drawingPlane extends JComponent{
             temp.add(new OtherPoint(afterx,aftery,afterz));
         }
         ArrayList<Vector> tempv = new ArrayList<Vector>();
-        for (Vector v : vectors) {
+        for (Vector v : v2) {
             OtherPoint pone = v.getOne();
             double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
             double[] oreturned = manipulate.rotate(ovector, axis, angle);
@@ -403,7 +424,7 @@ public class drawingPlane extends JComponent{
             tempv.add(new Vector(dpone,dptwo));
         }
         ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        for (Polygon p : polygons) {
+        for (Polygon p : pol2) {
             OtherPoint pone = p.getOne();
             OtherPoint ptwo = p.getTwo();
             OtherPoint pthree = p.getThree();
