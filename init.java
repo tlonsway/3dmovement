@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.awt.image.BufferedImage;
 public class init {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Game window");
@@ -43,7 +44,11 @@ public class init {
         frame.addKeyListener(new Listener(plane));
         //frame.getContentPane().setBackground(Color.CYAN);
         frame.getContentPane().setBackground(Color.yellow);
+        //STARTING MOUSE SCANNER
         (new Thread(new MouseData(plane))).start();
-
+        //HIDING CURSOR
+        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+        Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
+        frame.getContentPane().setCursor(blankCursor);
     }
 }
