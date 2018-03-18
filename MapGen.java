@@ -26,12 +26,12 @@ public class MapGen {
                 map[0][w][l] = 0;
             }
         }        
-        for (int r=0;r<depth.length;r++) {
+        /*for (int r=0;r<depth.length;r++) {
             for (int c=0;c<depth[0].length;c++) {
                 System.out.print(depth[r][c] + "\t");
             }
             System.out.println();
-        }
+        }*/
         return map;
     }
 }

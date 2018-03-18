@@ -27,6 +27,12 @@ public class Listener extends KeyAdapter {
         if (key == KeyEvent.VK_CONTROL) {
             current.down();
         }
+        if (key == KeyEvent.VK_Q) {
+            current.look('z', .1);
+        }
+        if (key == KeyEvent.VK_E) {
+            current.look('z', -.1);
+        }
         /*if (key == KeyEvent.VK_S) {
             current.look('x', .1);
         }

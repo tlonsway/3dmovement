@@ -56,10 +56,81 @@ public class drawingPlane extends JComponent{
         }*/
 
         
+        //ZBUFFER
+        //SORT EDGES AND POLYGONS BY Z
+        ArrayList<ZObject> zobjects = ZBuffer.sortZ(vectors, polygons);
+        for (ZObject z : zobjects) {
+            if (z.getType().equals("Vector")) {
+                g.setColor(Color.RED);
+                Vector v = z.getVector();
+                if (v.getOne().getZ() > 0 && v.getTwo().getZ() > 0) {
+                    OtherPoint pone = v.getOne();
+                    double onex = pone.getX();
+                    double oney = pone.getY();
+                    double onez = pone.getZ();
+                    double[] oneproj = project.project2D(new double[]{onex,oney,onez,1},75.0,1.0,5.0,100.0);
+                    double oneax = oneproj[0];
+                    double oneay = oneproj[1];
+                    OtherPoint ptwo = v.getTwo();
+                    double twox = ptwo.getX();
+                    double twoy = ptwo.getY();
+                    double twoz = ptwo.getZ();
+                    double[] twoproj = project.project2D(new double[]{twox,twoy,twoz,1},75.0,1.0,5.0,100.0);            
+                    double twoax = twoproj[0];
+                    double twoay = twoproj[1];
+                    if (oneax > -50 && oneax < 800 && oneay > 0 && oneay < 800) {
+                        g.drawLine((int)(800*oneax), (int)(800*oneay), (int)(800*twoax), (int)(800*twoay));
+                    }
+                }                
+            }
+            if (z.getType().equals("Polygon")) {
+                g.setColor(Color.GREEN);
+                Polygon p = z.getPolygon();
+                if (p.getOne().getZ() > 0 && p.getTwo().getZ() > 0 && p.getThree().getZ() > 0) {
+                    OtherPoint pone = p.getOne();
+                    double onex = pone.getX();
+                    double oney = pone.getY();
+                    double onez = pone.getZ();
+                    double[] oneproj = project.project2D(new double[]{onex,oney,onez,1},75.0,1.0,5.0,100.0);
+                    double oneax = oneproj[0];
+                    double oneay = oneproj[1];
+                    OtherPoint ptwo = p.getTwo();
+                    double twox = ptwo.getX();
+                    double twoy = ptwo.getY();
+                    double twoz = ptwo.getZ();
+                    double[] twoproj = project.project2D(new double[]{twox,twoy,twoz,1},75.0,1.0,5.0,100.0);            
+                    double twoax = twoproj[0];
+                    double twoay = twoproj[1];
+                    OtherPoint pthree = p.getThree();
+                    double threex = pthree.getX();
+                    double threey = pthree.getY();
+                    double threez = pthree.getZ();
+                    double[] threeproj = project.project2D(new double[]{threex,threey,threez,1},75.0,1.0,5.0,100.0);
+                    double threeax = threeproj[0];
+                    double threeay = threeproj[1];
+                    int[] xp = new int[]{(int)(800*oneax),(int)(800*twoax),(int)(800*threeax)};
+                    int[] yp = new int[]{(int)(800*oneay),(int)(800*twoay),(int)(800*threeay)};
+                    g.setColor(Color.GREEN);
+                    if (oneax > -50 && oneax < 800 && oneay > 0 && oneay < 800) {
+                        g.drawPolygon(xp,yp,3);
+                        g.fillPolygon(xp,yp,3);                    
+                    }                                
+                }                   
+            }
+        }
         
         
         
         
+        
+        //System.out.println("Points in plane: " + points.size());
+        //System.out.println("Vectors in plane: " + vectors.size());        
+        //System.out.println("Polygons in plane: " + polygons.size());        
+        
+        
+        
+        
+        /*
         for (Polygon p : polygons) {
             if (p.getOne().getZ() > 0 && p.getTwo().getZ() > 0 && p.getThree().getZ() > 0) {
                 OtherPoint pone = p.getOne();
@@ -114,6 +185,7 @@ public class drawingPlane extends JComponent{
                 }
             }
         }
+        */
     }
     public void forwards() {
         ArrayList<OtherPoint> p2 = points;
