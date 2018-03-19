@@ -30,25 +30,10 @@ public class drawingPlane extends JComponent{
                 for (int l=0;l<map[0][0].length;l++) {
                     if (map[d][w][l] == 1) {
                         Cube c = Shapes.genCube(w,d,l);
-                        //cubes.add(c);
-                        //ArrayList<OtherPoint> po = c.getPoints();
                         for (ZObject zo : c.getZObjects()) {
                             //System.out.println("Processing ZObject");
                             pzobjects.add(zo);
                         }
-                        
-                        //pzobjects.addAll(c.getZObjects());
-                        //ArrayList<Vector> ve = c.getVectors();
-                        //ArrayList<Polygon> pol = c.getPolygons();
-                        //for (OtherPoint p : po) {
-                        //    points.add(p);
-                        //}
-                        //for (Vector v : ve) {
-                        //    vectors.add(v);
-                        //}
-                        //for (Polygon p : pol) {
-                        //    polygons.add(p);
-                        //}
                     }
                 }
             }
@@ -66,17 +51,6 @@ public class drawingPlane extends JComponent{
         double tempx;
         double tempy;
         double[] temp;
-        /*for (Point p : points) {
-            temp = project.project2D(new double[]{p.getX(),p.getY(),p.getZ(),1},75.0,1.0,5.0,100.0);
-            tempx = temp[0];
-            tempy = temp[1];
-            tempx *= 800;
-            tempy *= 800;
-            g.drawRect((int)tempx,(int)tempy, 5, 5);
-            System.out.println("Drawing point at (" + tempx + ", " + tempy + ")");
-        }*/
-
-        
         //ZBUFFER
         //SORT EDGES AND POLYGONS BY Z
         //long zsortstartTime = System.nanoTime();
@@ -135,7 +109,7 @@ public class drawingPlane extends JComponent{
                     double threeay = threeproj[1];
                     int[] xp = new int[]{(int)(WINDOW_WIDTH*oneax),(int)(WINDOW_WIDTH*twoax),(int)(WINDOW_WIDTH*threeax)};
                     int[] yp = new int[]{(int)(WINDOW_HEIGHT*oneay),(int)(WINDOW_HEIGHT*twoay),(int)(WINDOW_HEIGHT*threeay)};
-                    int avy = (int)((oney+twoy+threey)/3);                  
+                    //int avy = (int)((oney+twoy+threey)/3);                  
                     g.setColor(p.getColor());
                     if (oneax > -50 && oneax < 800 && oneay > 0 && oneay < 800) {
                         //g.drawPolygon(xp,yp,3);
