@@ -16,7 +16,7 @@ public class ZBuffer {
         }
         */
         ArrayList<ZObject> objects = new ArrayList<ZObject>();
-        /*
+        
         double previous = -100000000;
         //double greatestz;
         ZObject largest = new ZObject();
@@ -32,6 +32,9 @@ public class ZBuffer {
                     besti = i;
                 }
             }
+            if (pobjects.size()%1000 == 0) {
+                System.out.println(pobjects.size() + " objects left to ZSort");
+            }
             //System.out.println("i: " + besti);
             //System.out.println("pobjects length: " + pobjects.size());
             //System.out.println("previous: " + previous);
@@ -40,7 +43,7 @@ public class ZBuffer {
         }
         //System.out.println("ZBuffer sort took " + (System.nanoTime()-startTime));
         
-        */
+        
         //for (
         
         

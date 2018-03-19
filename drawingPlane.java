@@ -81,8 +81,8 @@ public class drawingPlane extends JComponent{
         long zsortstartTime = System.nanoTime();
         ArrayList<ZObject> zobjects = ZBuffer.sortZ(pzobjects);
         System.out.println("ZBUFFER SORT TOOK: " + (System.nanoTime()-zsortstartTime)/1000000000.0 + " seconds");        
-        //System.out.println("Amount of rendered objects in plane: " + zobjects.size());
-        //System.out.println("Amount of unrendered objects in plane: " + pzobjects.size());
+        System.out.println("Amount of rendered objects in plane: " + zobjects.size());
+        System.out.println("Amount of unrendered objects in plane: " + pzobjects.size());
         long drawstartTime = System.nanoTime();
         for (ZObject z : zobjects) {
             if (z.getType().equals("Vector")) {

@@ -12,7 +12,7 @@ public class init {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //build map
-        Map map = MapGen.generate(20);
+        Map map = MapGen.generate(10);
         //cube:
         /*ArrayList<Point> points = new ArrayList<Point>();
         points.add(new Point(-2,-2,6));
@@ -53,6 +53,9 @@ public class init {
         frame.getContentPane().setCursor(blankCursor);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         plane.look('y', -.6);
+        plane.move('y',5.0);
+        plane.look('x', .3);
+        mousethread.toggle();
         //frame.setUndecorated(true);
     }
 }
