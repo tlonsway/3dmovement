@@ -19,11 +19,12 @@ public class drawingPlane extends JComponent{
         WINDOW_HEIGHT = height;
         FOV = fo;
         //ASPECT = WINDOW_WIDTH/WINDOW_HEIGHT;
-        ASPECT = WINDOW_HEIGHT/WINDOW_WIDTH;
+        //ASPECT = WINDOW_HEIGHT/WINDOW_WIDTH;
+        ASPECT = 1;
         map = m;
         depth = de;
         boolean dcheck;
-        long mapStartTime = System.nanoTime();
+        //long mapStartTime = System.nanoTime();
         for (int d=0;d<map.length;d++) {
             for (int w=0;w<map[0].length;w++) {
                 for (int l=0;l<map[0][0].length;l++) {
@@ -52,7 +53,7 @@ public class drawingPlane extends JComponent{
                 }
             }
         }        
-        System.out.println("MAP GEN TOOK: " + (System.nanoTime()-mapStartTime)/1000000000.0 + " seconds");
+        //System.out.println("MAP GEN TOOK: " + (System.nanoTime()-mapStartTime)/1000000000.0 + " seconds");
     }
     
     public void redraw() {
@@ -78,12 +79,12 @@ public class drawingPlane extends JComponent{
         
         //ZBUFFER
         //SORT EDGES AND POLYGONS BY Z
-        long zsortstartTime = System.nanoTime();
+        //long zsortstartTime = System.nanoTime();
         ArrayList<ZObject> zobjects = ZBuffer.sortZ(pzobjects);
-        System.out.println("ZBUFFER SORT TOOK: " + (System.nanoTime()-zsortstartTime)/1000000000.0 + " seconds");        
-        System.out.println("Amount of rendered objects in plane: " + zobjects.size());
-        System.out.println("Amount of unrendered objects in plane: " + pzobjects.size());
-        long drawstartTime = System.nanoTime();
+        //System.out.println("ZBUFFER SORT TOOK: " + (System.nanoTime()-zsortstartTime)/1000000000.0 + " seconds");        
+        //System.out.println("Amount of rendered objects in plane: " + zobjects.size());
+        //System.out.println("Amount of unrendered objects in plane: " + pzobjects.size());
+        //long drawstartTime = System.nanoTime();
         for (ZObject z : zobjects) {
             if (z.getType().equals("Vector")) {
                 g.setColor(Color.BLACK);
@@ -137,85 +138,19 @@ public class drawingPlane extends JComponent{
                     int avy = (int)((oney+twoy+threey)/3);                  
                     g.setColor(p.getColor());
                     if (oneax > -50 && oneax < 800 && oneay > 0 && oneay < 800) {
-                        g.drawPolygon(xp,yp,3);
+                        //g.drawPolygon(xp,yp,3);
                         g.fillPolygon(xp,yp,3);                    
                     }                                
                 }                   
             }
         }
         //System.out.println("Frame generation took " + (System.nanoTime()-startTime));
-        System.out.println("FRAME DRAW TOOK: " + (System.nanoTime()-drawstartTime)/1000000000.0 + " seconds");             
-        
-        
-        
-        //System.out.println("Points in plane: " + points.size());
-        //System.out.println("Vectors in plane: " + vectors.size());        
-        //System.out.println("Polygons in plane: " + polygons.size());        
-        
-        
-        
-        
-        /*
-        for (Polygon p : polygons) {
-            if (p.getOne().getZ() > 0 && p.getTwo().getZ() > 0 && p.getThree().getZ() > 0) {
-                OtherPoint pone = p.getOne();
-                double onex = pone.getX();
-                double oney = pone.getY();
-                double onez = pone.getZ();
-                double[] oneproj = project.project2D(new double[]{onex,oney,onez,1},75.0,1.0,5.0,100.0);
-                double oneax = oneproj[0];
-                double oneay = oneproj[1];
-                OtherPoint ptwo = p.getTwo();
-                double twox = ptwo.getX();
-                double twoy = ptwo.getY();
-                double twoz = ptwo.getZ();
-                double[] twoproj = project.project2D(new double[]{twox,twoy,twoz,1},75.0,1.0,5.0,100.0);            
-                double twoax = twoproj[0];
-                double twoay = twoproj[1];
-                OtherPoint pthree = p.getThree();
-                double threex = pthree.getX();
-                double threey = pthree.getY();
-                double threez = pthree.getZ();
-                double[] threeproj = project.project2D(new double[]{threex,threey,threez,1},75.0,1.0,5.0,100.0);
-                double threeax = threeproj[0];
-                double threeay = threeproj[1];
-                int[] xp = new int[]{(int)(800*oneax),(int)(800*twoax),(int)(800*threeax)};
-                int[] yp = new int[]{(int)(800*oneay),(int)(800*twoay),(int)(800*threeay)};
-                g.setColor(Color.GREEN);
-                if (oneax > -50 && oneax < 800 && oneay > 0 && oneay < 800) {
-                    g.drawPolygon(xp,yp,3);
-                    g.fillPolygon(xp,yp,3);                    
-                }                                
-            }    
-        }
-        g.setColor(Color.RED);
-        for (Vector v : vectors) {
-            if (v.getOne().getZ() > 0 && v.getTwo().getZ() > 0) {
-                OtherPoint pone = v.getOne();
-                double onex = pone.getX();
-                double oney = pone.getY();
-                double onez = pone.getZ();
-                double[] oneproj = project.project2D(new double[]{onex,oney,onez,1},75.0,1.0,5.0,100.0);
-                double oneax = oneproj[0];
-                double oneay = oneproj[1];
-                OtherPoint ptwo = v.getTwo();
-                double twox = ptwo.getX();
-                double twoy = ptwo.getY();
-                double twoz = ptwo.getZ();
-                double[] twoproj = project.project2D(new double[]{twox,twoy,twoz,1},75.0,1.0,5.0,100.0);            
-                double twoax = twoproj[0];
-                double twoay = twoproj[1];
-                if (oneax > -50 && oneax < 800 && oneay > 0 && oneay < 800) {
-                    g.drawLine((int)(800*oneax), (int)(800*oneay), (int)(800*twoax), (int)(800*twoay));
-                }
-            }
-        }
-        */
+        //System.out.println("FRAME DRAW TOOK: " + (System.nanoTime()-drawstartTime)/1000000000.0 + " seconds");             
     }
     
     
     public void move(char dir, double dis) {
-        long moveStartTime = System.nanoTime();
+        //long moveStartTime = System.nanoTime();
         ArrayList<ZObject> tempzobj = new ArrayList<ZObject>();
         double xdist = 0;
         double ydist = 0;
@@ -258,11 +193,11 @@ public class drawingPlane extends JComponent{
             }
         }
         pzobjects = tempzobj;
-        System.out.println("TRANSLATION MOVEMENT TOOK: " + (System.nanoTime()-moveStartTime)/1000000000.0 + " seconds");     
+        //System.out.println("TRANSLATION MOVEMENT TOOK: " + (System.nanoTime()-moveStartTime)/1000000000.0 + " seconds");     
         redraw();
     }
     public void look(char ax, double angle) {
-        long lookStartTime = System.nanoTime();
+        //long lookStartTime = System.nanoTime();
         ArrayList<ZObject> tempzobj = new ArrayList<ZObject>();
         for (ZObject zo : pzobjects) {
             if (zo.getType().equals("Vector")) {
@@ -294,7 +229,7 @@ public class drawingPlane extends JComponent{
         }
         pzobjects = tempzobj;
         //System.out.println("TRANSFORMED OBJECT COUNT: " + tempzobj.size());
-        System.out.println("ROTATION MOVEMENT TOOK: " + (System.nanoTime()-lookStartTime)/1000000000.0 + " seconds");          
+        //System.out.println("ROTATION MOVEMENT TOOK: " + (System.nanoTime()-lookStartTime)/1000000000.0 + " seconds");          
         redraw();
     }
     //double[] trreturned = manipulate.rotate(trvector, axis, angle);
