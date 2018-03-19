@@ -49,4 +49,7 @@ public class ZObject {
     public Vector getVector() {
         return new Vector(p1,p2);
     }
+    public Color getColor() {
+        return c;
+    }
 }

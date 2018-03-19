@@ -38,19 +38,20 @@ public class init {
         vectors.add(new Vector(points.get(6),points.get(7)));*/
         //build drawing plane
         drawingPlane plane = new drawingPlane(map.getMap(),map.getDepth(),1920,1080,75);
+        MouseData mousethread = new MouseData(plane);        
         frame.add(plane);
         plane.setVisible(true);
         plane.redraw();
-        frame.addKeyListener(new Listener(plane));
+        frame.addKeyListener(new Listener(plane, mousethread));
         //frame.getContentPane().setBackground(Color.CYAN);
         frame.getContentPane().setBackground(Color.darkGray);
         //STARTING MOUSE SCANNER
-        (new Thread(new MouseData(plane))).start();
+        (new Thread(mousethread)).start();
         //HIDING CURSOR
         BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
         Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
         frame.getContentPane().setCursor(blankCursor);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        frame.setUndecorated(true);
+        //frame.setUndecorated(true);
     }
 }

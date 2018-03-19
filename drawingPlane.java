@@ -2,10 +2,10 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 public class drawingPlane extends JComponent{
-    ArrayList<OtherPoint> points = new ArrayList<OtherPoint>(); // ArrayList of currently existed points, unprojected
-    ArrayList<Vector> vectors = new ArrayList<Vector>(); // ArrayList of currently existing vectors between points
-    ArrayList<Polygon> polygons = new ArrayList<Polygon>();
-    ArrayList<Cube> cubes = new ArrayList<Cube>();
+    //ArrayList<OtherPoint> points = new ArrayList<OtherPoint>(); // ArrayList of currently existed points, unprojected
+    //ArrayList<Vector> vectors = new ArrayList<Vector>(); // ArrayList of currently existing vectors between points
+    //ArrayList<Polygon> polygons = new ArrayList<Polygon>();
+    //ArrayList<Cube> cubes = new ArrayList<Cube>();
     ArrayList<ZObject> pzobjects = new ArrayList<ZObject>();
     int[][][] map;
     int[][] depth;
@@ -29,7 +29,12 @@ public class drawingPlane extends JComponent{
                         Cube c = Shapes.genCube(w,d,l);
                         //cubes.add(c);
                         //ArrayList<OtherPoint> po = c.getPoints();
-                        pzobjects.addAll(c.getZObjects());
+                        for (ZObject zo : c.getZObjects()) {
+                            //System.out.println("Processing ZObject");
+                            pzobjects.add(zo);
+                        }
+                        
+                        //pzobjects.addAll(c.getZObjects());
                         //ArrayList<Vector> ve = c.getVectors();
                         //ArrayList<Polygon> pol = c.getPolygons();
                         //for (OtherPoint p : po) {
@@ -41,7 +46,6 @@ public class drawingPlane extends JComponent{
                         //for (Polygon p : pol) {
                         //    polygons.add(p);
                         //}
-                        
                     }
                 }
             }
@@ -73,6 +77,8 @@ public class drawingPlane extends JComponent{
         //SORT EDGES AND POLYGONS BY Z
         //long startTime = System.nanoTime();
         ArrayList<ZObject> zobjects = ZBuffer.sortZ(pzobjects);
+        //System.out.println("Amount of rendered objects in plane: " + zobjects.size());
+        //System.out.println("Amount of unrendered objects in plane: " + pzobjects.size());
         for (ZObject z : zobjects) {
             if (z.getType().equals("Vector")) {
                 g.setColor(Color.BLACK);
@@ -201,334 +207,127 @@ public class drawingPlane extends JComponent{
         }
         */
     }
-    public void forwards() {
-        ArrayList<OtherPoint> p2 = points;
-        ArrayList<Vector> v2 = vectors;
-        ArrayList<Polygon> pol2 = polygons;           
-        ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
-        for (OtherPoint p : p2) {
-            double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
-            double[] returned = manipulate.translate(vector, 0, 0, -.1);
-            double afterx = returned[0];
-            double aftery = returned[1];
-            double afterz = returned[2];
-            temp.add(new OtherPoint(afterx,aftery,afterz));
+    
+    
+    public void move(char dir, double dis) {
+        ArrayList<ZObject> tempzobj = new ArrayList<ZObject>();
+        double xdist = 0;
+        double ydist = 0;
+        double zdist = 0;
+        if (dir == 'x') {
+            xdist = dis;
         }
-        ArrayList<Vector> tempv = new ArrayList<Vector>();
-        for (Vector v : v2) {
-            OtherPoint pone = v.getOne();
-            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, 0, -.1);
-            OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-            OtherPoint ptwo = v.getTwo();
-            double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
-            double[] treturned = manipulate.translate(tvector, 0, 0, -.1);
-            OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
-            tempv.add(new Vector(dpone,dptwo));
+        if (dir == 'y') {
+            ydist = dis;
         }
-        ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        for (Polygon p : pol2) {
-            OtherPoint pone = p.getOne();
-            OtherPoint ptwo = p.getTwo();
-            OtherPoint pthree = p.getThree();
-            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
-            double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
-            double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, 0, -.1);            
-            double[] twreturned = manipulate.translate(twvector, 0, 0, -.1);
-            double[] trreturned = manipulate.translate(trvector, 0, 0, -.1);
-            OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-            OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
-            OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-            Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
-            tempo.add(poly);
+        if (dir == 'z') {
+            zdist = dis;
         }
-        polygons = tempo;
-        vectors = tempv;
-        points = temp;
+        for (ZObject zo : pzobjects) {
+            if (zo.getType().equals("Vector")) {
+                OtherPoint pone = zo.getOne();
+                double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
+                double[] oreturned = manipulate.translate(ovector, xdist, ydist, zdist);
+                OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
+                OtherPoint ptwo = zo.getTwo();
+                double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
+                double[] treturned = manipulate.translate(tvector, xdist, ydist, zdist);
+                OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
+                tempzobj.add(new ZObject(dpone,dptwo));               
+            }
+            if (zo.getType().equals("Polygon")) {
+                OtherPoint pone = zo.getOne();
+                OtherPoint ptwo = zo.getTwo();
+                OtherPoint pthree = zo.getThree();
+                double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
+                double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
+                double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
+                double[] oreturned = manipulate.translate(ovector, xdist, ydist, zdist);            
+                double[] twreturned = manipulate.translate(twvector, xdist, ydist, zdist);
+                double[] trreturned = manipulate.translate(trvector, xdist, ydist, zdist);
+                OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
+                OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
+                OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
+                tempzobj.add(new ZObject(dpone,dptwo,dpthree,zo.getColor()));                
+            }
+        }
+        pzobjects = tempzobj;
+        //System.out.println("TRANSFORMED OBJECT COUNT: " + tempzobj.size());
+        //for (OtherPoint p : p2) {
+        //    double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
+        //    double[] returned = manipulate.translate(vector, 0, 0, -.1);
+        //    double afterx = returned[0];
+        //    double aftery = returned[1];
+        //    double afterz = returned[2];
+        //    temp.add(new OtherPoint(afterx,aftery,afterz));
+        //}
+        //ArrayList<Vector> tempv = new ArrayList<Vector>();
+        //for (Vector v : v2) {
+        //    OtherPoint pone = v.getOne();
+        //    double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
+        //    double[] oreturned = manipulate.translate(ovector, 0, 0, -.1);
+        //    OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
+        //    OtherPoint ptwo = v.getTwo();
+        //    double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
+        //    double[] treturned = manipulate.translate(tvector, 0, 0, -.1);
+        //    OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
+        //    tempv.add(new Vector(dpone,dptwo));
+        //}
+        //ArrayList<Polygon> tempo = new ArrayList<Polygon>();
+        //for (Polygon p : pol2) {
+        //    OtherPoint pone = p.getOne();
+        //    OtherPoint ptwo = p.getTwo();
+        //    OtherPoint pthree = p.getThree();
+        //    double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
+        //    double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
+        //    double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
+        //    double[] oreturned = manipulate.translate(ovector, 0, 0, -.1);            
+        //    double[] twreturned = manipulate.translate(twvector, 0, 0, -.1);
+        //    double[] trreturned = manipulate.translate(trvector, 0, 0, -.1);
+        //    OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
+        //    OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
+        //    OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
+        //    Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
+        //    tempo.add(poly);
+        //}
+        //polygons = tempo;
+        //vectors = tempv;
+        //points = temp;
         redraw();
     }
-    public void backwards() {
-        ArrayList<OtherPoint> p2 = points;
-        ArrayList<Vector> v2 = vectors;
-        ArrayList<Polygon> pol2 = polygons;           
-        ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
-        for (OtherPoint p : p2) {
-            double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
-            double[] returned = manipulate.translate(vector, 0, 0, .1);
-            double afterx = returned[0];
-            double aftery = returned[1];
-            double afterz = returned[2];
-            temp.add(new OtherPoint(afterx,aftery,afterz));
-        }
-        ArrayList<Vector> tempv = new ArrayList<Vector>();
-        for (Vector v : v2) {
-            OtherPoint pone = v.getOne();
-            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, 0, .1);
-            OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-            OtherPoint ptwo = v.getTwo();
-            double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
-            double[] treturned = manipulate.translate(tvector, 0, 0, .1);
-            OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
-            tempv.add(new Vector(dpone,dptwo));
-        }
-        ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        for (Polygon p : pol2) {
-            OtherPoint pone = p.getOne();
-            OtherPoint ptwo = p.getTwo();
-            OtherPoint pthree = p.getThree();
-            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
-            double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
-            double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, 0, .1);            
-            double[] twreturned = manipulate.translate(twvector, 0, 0, .1);
-            double[] trreturned = manipulate.translate(trvector, 0, 0, .1);
-            OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-            OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
-            OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-            Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
-            tempo.add(poly);
-        }
-        polygons = tempo;        
-        vectors = tempv;        
-        points = temp;
-        redraw();        
-    }
-    public void left() {
-        ArrayList<OtherPoint> p2 = points;
-        ArrayList<Vector> v2 = vectors;
-        ArrayList<Polygon> pol2 = polygons;           
-        ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
-        for (OtherPoint p : p2) {
-            double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
-            double[] returned = manipulate.translate(vector, .1, 0, 0);
-            double afterx = returned[0];
-            double aftery = returned[1];
-            double afterz = returned[2];
-            temp.add(new OtherPoint(afterx,aftery,afterz));
-        }
-        ArrayList<Vector> tempv = new ArrayList<Vector>();
-        for (Vector v : v2) {
-            OtherPoint pone = v.getOne();
-            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, .1, 0, 0);
-            OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-            OtherPoint ptwo = v.getTwo();
-            double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
-            double[] treturned = manipulate.translate(tvector, .1, 0, 0);
-            OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
-            tempv.add(new Vector(dpone,dptwo));
-        }
-        ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        for (Polygon p : pol2) {
-            OtherPoint pone = p.getOne();
-            OtherPoint ptwo = p.getTwo();
-            OtherPoint pthree = p.getThree();
-            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
-            double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
-            double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, .1, 0, 0);            
-            double[] twreturned = manipulate.translate(twvector, .1, 0, 0);
-            double[] trreturned = manipulate.translate(trvector, .1, 0, 0);
-            OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-            OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
-            OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-            Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
-            tempo.add(poly);
-        }
-        polygons = tempo;        
-        vectors = tempv;        
-        points = temp;
-        redraw();        
-    }
-    public void right() {
-        ArrayList<OtherPoint> p2 = points;
-        ArrayList<Vector> v2 = vectors;
-        ArrayList<Polygon> pol2 = polygons;           
-        ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
-        for (OtherPoint p : p2) {
-            double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
-            double[] returned = manipulate.translate(vector, -.1, 0, 0);
-            double afterx = returned[0];
-            double aftery = returned[1];
-            double afterz = returned[2];
-            temp.add(new OtherPoint(afterx,aftery,afterz));
-        }
-        ArrayList<Vector> tempv = new ArrayList<Vector>();
-        for (Vector v : v2) {
-            OtherPoint pone = v.getOne();
-            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, -.1, 0, 0);
-            OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-            OtherPoint ptwo = v.getTwo();
-            double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
-            double[] treturned = manipulate.translate(tvector, -.1, 0, 0);
-            OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
-            tempv.add(new Vector(dpone,dptwo));
-        }
-        ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        for (Polygon p : pol2) {
-            OtherPoint pone = p.getOne();
-            OtherPoint ptwo = p.getTwo();
-            OtherPoint pthree = p.getThree();
-            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
-            double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
-            double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector,-.1, 0, 0);            
-            double[] twreturned = manipulate.translate(twvector, -.1, 0, 0);
-            double[] trreturned = manipulate.translate(trvector, -.1, 0, 0);
-            OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-            OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
-            OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-            Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
-            tempo.add(poly);
-        }
-        polygons = tempo;        
-        vectors = tempv;         
-        points = temp;
-        redraw();        
-    }
-    public void up() {
-        ArrayList<OtherPoint> p2 = points;
-        ArrayList<Vector> v2 = vectors;
-        ArrayList<Polygon> pol2 = polygons;          
-        ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
-        for (OtherPoint p : p2) {
-            double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
-            double[] returned = manipulate.translate(vector, 0, .1, 0);
-            double afterx = returned[0];
-            double aftery = returned[1];
-            double afterz = returned[2];
-            temp.add(new OtherPoint(afterx,aftery,afterz));
-        }
-        ArrayList<Vector> tempv = new ArrayList<Vector>();
-        for (Vector v : v2) {
-            OtherPoint pone = v.getOne();
-            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, .1, 0);
-            OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-            OtherPoint ptwo = v.getTwo();
-            double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
-            double[] treturned = manipulate.translate(tvector, 0, .1, 0);
-            OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
-            tempv.add(new Vector(dpone,dptwo));
-        }
-        ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        for (Polygon p : pol2) {
-            OtherPoint pone = p.getOne();
-            OtherPoint ptwo = p.getTwo();
-            OtherPoint pthree = p.getThree();
-            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
-            double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
-            double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, .1, 0);            
-            double[] twreturned = manipulate.translate(twvector, 0, .1, 0);
-            double[] trreturned = manipulate.translate(trvector, 0, .1, 0);
-            OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-            OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
-            OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-            Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
-            tempo.add(poly);
-        }
-        polygons = tempo;        
-        vectors = tempv;         
-        points = temp;
-        redraw();        
-    }    
-    public void down() {
-        ArrayList<OtherPoint> p2 = points;
-        ArrayList<Vector> v2 = vectors;
-        ArrayList<Polygon> pol2 = polygons;        
-        ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
-        for (OtherPoint p : p2) {
-            double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
-            double[] returned = manipulate.translate(vector, 0, -.1, 0);
-            double afterx = returned[0];
-            double aftery = returned[1];
-            double afterz = returned[2];
-            temp.add(new OtherPoint(afterx,aftery,afterz));
-        }
-        ArrayList<Vector> tempv = new ArrayList<Vector>();
-        for (Vector v : v2) {
-            OtherPoint pone = v.getOne();
-            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, -.1, 0);
-            OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-            OtherPoint ptwo = v.getTwo();
-            double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
-            double[] treturned = manipulate.translate(tvector, 0, -.1, 0);
-            OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
-            tempv.add(new Vector(dpone,dptwo));
-        }
-        ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        for (Polygon p : pol2) {
-            OtherPoint pone = p.getOne();
-            OtherPoint ptwo = p.getTwo();
-            OtherPoint pthree = p.getThree();
-            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
-            double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
-            double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
-            double[] oreturned = manipulate.translate(ovector, 0, -.1, 0);            
-            double[] twreturned = manipulate.translate(twvector, 0, -.1, 0);
-            double[] trreturned = manipulate.translate(trvector, 0, -.1, 0);
-            OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-            OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
-            OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-            Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
-            tempo.add(poly);
-        }
-        polygons = tempo;        
-        vectors = tempv;         
-        points = temp;
-        redraw();        
-    }
     public void look(char ax, double angle) {
-        ArrayList<OtherPoint> p2 = points;
-        ArrayList<Vector> v2 = vectors;
-        ArrayList<Polygon> pol2 = polygons;
-        char axis = ax;
-        ArrayList<OtherPoint> temp = new ArrayList<OtherPoint>();
-        for (OtherPoint p : p2) {
-            double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
-            double[] returned = manipulate.rotate(vector, axis, angle);
-            double afterx = returned[0];
-            double aftery = returned[1];
-            double afterz = returned[2];
-            temp.add(new OtherPoint(afterx,aftery,afterz));
+        ArrayList<ZObject> tempzobj = new ArrayList<ZObject>();
+        for (ZObject zo : pzobjects) {
+            if (zo.getType().equals("Vector")) {
+                OtherPoint pone = zo.getOne();
+                double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
+                double[] oreturned = manipulate.rotate(ovector, ax, angle);
+                OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
+                OtherPoint ptwo = zo.getTwo();
+                double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
+                double[] treturned = manipulate.rotate(tvector, ax, angle);
+                OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
+                tempzobj.add(new ZObject(dpone,dptwo));               
+            }
+            if (zo.getType().equals("Polygon")) {
+                OtherPoint pone = zo.getOne();
+                OtherPoint ptwo = zo.getTwo();
+                OtherPoint pthree = zo.getThree();
+                double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
+                double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
+                double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
+                double[] oreturned = manipulate.rotate(ovector, ax, angle);          
+                double[] twreturned = manipulate.rotate(twvector, ax, angle);
+                double[] trreturned = manipulate.rotate(trvector, ax, angle);
+                OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
+                OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
+                OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
+                tempzobj.add(new ZObject(dpone,dptwo,dpthree,zo.getColor()));                
+            }
         }
-        ArrayList<Vector> tempv = new ArrayList<Vector>();
-        for (Vector v : v2) {
-            OtherPoint pone = v.getOne();
-            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
-            double[] oreturned = manipulate.rotate(ovector, axis, angle);
-            OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-            OtherPoint ptwo = v.getTwo();
-            double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
-            double[] treturned = manipulate.rotate(tvector, axis, angle);
-            OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
-            tempv.add(new Vector(dpone,dptwo));
-        }
-        ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        for (Polygon p : pol2) {
-            OtherPoint pone = p.getOne();
-            OtherPoint ptwo = p.getTwo();
-            OtherPoint pthree = p.getThree();
-            double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
-            double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
-            double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
-            double[] oreturned = manipulate.rotate(ovector, axis, angle);            
-            double[] twreturned = manipulate.rotate(twvector, axis, angle);
-            double[] trreturned = manipulate.rotate(trvector, axis, angle);
-            OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-            OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
-            OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-            Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
-            tempo.add(poly);
-        }
-        polygons = tempo;        
-        vectors = tempv;        
-        points = temp;
-        redraw();     
+        pzobjects = tempzobj;
+        //System.out.println("TRANSFORMED OBJECT COUNT: " + tempzobj.size());
+        redraw();
     }
+    //double[] trreturned = manipulate.rotate(trvector, axis, angle);
 }

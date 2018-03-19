@@ -8,6 +8,7 @@ public class Cube {
         points = p;
         vectors = v;
         polygons = po;
+        zobjects = new ArrayList<ZObject>();
         for (Vector ve : vectors) {
             zobjects.add(new ZObject(ve.getOne(), ve.getTwo()));
         }

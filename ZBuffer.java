@@ -1,6 +1,8 @@
 import java.util.*;
 public class ZBuffer {
-    public static ArrayList<ZObject> sortZ(ArrayList<ZObject> pobjects) {
+    public static ArrayList<ZObject> sortZ(ArrayList<ZObject> p2objects) {
+        ArrayList<ZObject> pobjects = new ArrayList<ZObject>();
+        pobjects.addAll(p2objects);
         //long startTime = System.nanoTime();
         //ArrayList<ZObject> pobjects = new ArrayList<ZObject>();
         //System.out.println("vectors: " + vectors.size());
@@ -33,7 +35,6 @@ public class ZBuffer {
             //System.out.println("previous: " + previous);
             pobjects.remove(besti);
             objects.add(largest);
-            //System.out.println("SORT PASS COMPLETE");
         }
         //System.out.println("ZBuffer sort took " + (System.nanoTime()-startTime));
         return objects;
