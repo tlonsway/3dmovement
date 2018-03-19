@@ -21,15 +21,20 @@ public class ZObject {
         c = co;
     }
     public double getZ() {
-        //FIND POINT WITH FARTHEST Z
-        OtherPoint farthestpoint = p1;
-        if (p2.getZ()>farthestpoint.getZ()) {
-            farthestpoint=p2;
+        //FIND POINT WITH CLOSEST Z
+        OtherPoint closestpoint = p1;
+        if (p2.getZ()<closestpoint.getZ()) {
+            closestpoint=p2;
         }
-        if (type.equals("Polygon") && p3.getZ()>farthestpoint.getZ()) {
-            farthestpoint=p3;
+        if (type.equals("Polygon") && p3.getZ()>closestpoint.getZ()) {
+            closestpoint=p3;
         }
-        return farthestpoint.getZ();
+        //return closestpoint.getZ();
+        if (type.equals("Polygon")) {
+            return (p1.getZ()+p2.getZ()+p3.getZ())/3;
+        } else {
+            return (p1.getZ()+p2.getZ())/2;
+        }
     }
     public String getType() {
         return type;

@@ -22,6 +22,7 @@ public class drawingPlane extends JComponent{
         map = m;
         depth = de;
         boolean dcheck;
+        long mapStartTime = System.nanoTime();
         for (int d=0;d<map.length;d++) {
             for (int w=0;w<map[0].length;w++) {
                 for (int l=0;l<map[0][0].length;l++) {
@@ -50,6 +51,7 @@ public class drawingPlane extends JComponent{
                 }
             }
         }        
+        System.out.println("MAP GEN TOOK: " + (System.nanoTime()-mapStartTime)/1000000000.0 + " seconds");
     }
     
     public void redraw() {
