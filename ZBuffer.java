@@ -16,10 +16,12 @@ public class ZBuffer {
         }
         */
         ArrayList<ZObject> objects = new ArrayList<ZObject>();
+        /*
         double previous = -100000000;
         //double greatestz;
         ZObject largest = new ZObject();
         int besti = 0;
+        
         while (pobjects.size()>0) {
             previous = -10000000;
             besti = 0;
@@ -37,6 +39,24 @@ public class ZBuffer {
             objects.add(largest);
         }
         //System.out.println("ZBuffer sort took " + (System.nanoTime()-startTime));
+        
+        */
+        //for (
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         return objects;
     } 
 }

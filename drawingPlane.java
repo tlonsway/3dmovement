@@ -18,7 +18,8 @@ public class drawingPlane extends JComponent{
         WINDOW_WIDTH = width;
         WINDOW_HEIGHT = height;
         FOV = fo;
-        ASPECT = WINDOW_WIDTH/WINDOW_HEIGHT;
+        //ASPECT = WINDOW_WIDTH/WINDOW_HEIGHT;
+        ASPECT = WINDOW_HEIGHT/WINDOW_WIDTH;
         map = m;
         depth = de;
         boolean dcheck;
@@ -77,10 +78,12 @@ public class drawingPlane extends JComponent{
         
         //ZBUFFER
         //SORT EDGES AND POLYGONS BY Z
-        //long startTime = System.nanoTime();
+        long zsortstartTime = System.nanoTime();
         ArrayList<ZObject> zobjects = ZBuffer.sortZ(pzobjects);
+        System.out.println("ZBUFFER SORT TOOK: " + (System.nanoTime()-zsortstartTime)/1000000000.0 + " seconds");        
         //System.out.println("Amount of rendered objects in plane: " + zobjects.size());
         //System.out.println("Amount of unrendered objects in plane: " + pzobjects.size());
+        long drawstartTime = System.nanoTime();
         for (ZObject z : zobjects) {
             if (z.getType().equals("Vector")) {
                 g.setColor(Color.BLACK);
@@ -141,7 +144,7 @@ public class drawingPlane extends JComponent{
             }
         }
         //System.out.println("Frame generation took " + (System.nanoTime()-startTime));
-        
+        System.out.println("FRAME DRAW TOOK: " + (System.nanoTime()-drawstartTime)/1000000000.0 + " seconds");             
         
         
         
@@ -212,6 +215,7 @@ public class drawingPlane extends JComponent{
     
     
     public void move(char dir, double dis) {
+        long moveStartTime = System.nanoTime();
         ArrayList<ZObject> tempzobj = new ArrayList<ZObject>();
         double xdist = 0;
         double ydist = 0;
@@ -254,50 +258,11 @@ public class drawingPlane extends JComponent{
             }
         }
         pzobjects = tempzobj;
-        //System.out.println("TRANSFORMED OBJECT COUNT: " + tempzobj.size());
-        //for (OtherPoint p : p2) {
-        //    double[] vector = new double[]{p.getX(),p.getY(),p.getZ(),1};
-        //    double[] returned = manipulate.translate(vector, 0, 0, -.1);
-        //    double afterx = returned[0];
-        //    double aftery = returned[1];
-        //    double afterz = returned[2];
-        //    temp.add(new OtherPoint(afterx,aftery,afterz));
-        //}
-        //ArrayList<Vector> tempv = new ArrayList<Vector>();
-        //for (Vector v : v2) {
-        //    OtherPoint pone = v.getOne();
-        //    double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};
-        //    double[] oreturned = manipulate.translate(ovector, 0, 0, -.1);
-        //    OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-        //    OtherPoint ptwo = v.getTwo();
-        //    double[] tvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};
-        //    double[] treturned = manipulate.translate(tvector, 0, 0, -.1);
-        //    OtherPoint dptwo = new OtherPoint(treturned[0],treturned[1],treturned[2]);            
-        //    tempv.add(new Vector(dpone,dptwo));
-        //}
-        //ArrayList<Polygon> tempo = new ArrayList<Polygon>();
-        //for (Polygon p : pol2) {
-        //    OtherPoint pone = p.getOne();
-        //    OtherPoint ptwo = p.getTwo();
-        //    OtherPoint pthree = p.getThree();
-        //    double[] ovector = new double[]{pone.getX(),pone.getY(),pone.getZ(),1};            
-        //    double[] twvector = new double[]{ptwo.getX(),ptwo.getY(),ptwo.getZ(),1};            
-        //    double[] trvector = new double[]{pthree.getX(),pthree.getY(),pthree.getZ(),1};
-        //    double[] oreturned = manipulate.translate(ovector, 0, 0, -.1);            
-        //    double[] twreturned = manipulate.translate(twvector, 0, 0, -.1);
-        //    double[] trreturned = manipulate.translate(trvector, 0, 0, -.1);
-        //    OtherPoint dpone = new OtherPoint(oreturned[0],oreturned[1],oreturned[2]);
-        //    OtherPoint dptwo = new OtherPoint(twreturned[0],twreturned[1],twreturned[2]);
-        //    OtherPoint dpthree = new OtherPoint(trreturned[0],trreturned[1],trreturned[2]);
-        //    Polygon poly = new Polygon(dpone,dptwo,dpthree,p.getColor());
-        //    tempo.add(poly);
-        //}
-        //polygons = tempo;
-        //vectors = tempv;
-        //points = temp;
+        System.out.println("TRANSLATION MOVEMENT TOOK: " + (System.nanoTime()-moveStartTime)/1000000000.0 + " seconds");     
         redraw();
     }
     public void look(char ax, double angle) {
+        long lookStartTime = System.nanoTime();
         ArrayList<ZObject> tempzobj = new ArrayList<ZObject>();
         for (ZObject zo : pzobjects) {
             if (zo.getType().equals("Vector")) {
@@ -329,6 +294,7 @@ public class drawingPlane extends JComponent{
         }
         pzobjects = tempzobj;
         //System.out.println("TRANSFORMED OBJECT COUNT: " + tempzobj.size());
+        System.out.println("ROTATION MOVEMENT TOOK: " + (System.nanoTime()-lookStartTime)/1000000000.0 + " seconds");          
         redraw();
     }
     //double[] trreturned = manipulate.rotate(trvector, axis, angle);
