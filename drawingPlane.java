@@ -39,7 +39,7 @@ public class drawingPlane extends JComponent{
             }
         }        
         System.out.println("MAP GEN TOOK: " + (System.nanoTime()-mapStartTime)/1000000000.0 + " seconds");*/
-        pzobjects = fileLoading.loadOBJ("humanoid_quad.txt");
+        pzobjects = fileLoading.loadOBJ("minicooper.txt");
         //this.setDoubleBuffered(true);
     }
     
