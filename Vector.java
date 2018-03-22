@@ -17,4 +17,10 @@ public class Vector {
     public OtherPoint getTwo() {
         return p2;
     }
+    public double[] getOneList() {
+        return new double[]{p1.getX(),p1.getY(),p1.getZ(),1};
+    }
+    public double[] getTwoList() {
+        return new double[]{p2.getX(),p2.getY(),p2.getZ(),1};
+    }
 }

@@ -28,4 +28,13 @@ public class Polygon {
     public Color getColor() {
         return c;
     }
+    public double[] getOneList() {
+        return new double[]{p1.getX(),p1.getY(),p1.getZ(),1};
+    }
+    public double[] getTwoList() {
+        return new double[]{p2.getX(),p2.getY(),p2.getZ(),1};
+    }
+    public double[] getThreeList() {
+        return new double[]{p3.getX(),p3.getY(),p3.getZ(),1};
+    }
 }

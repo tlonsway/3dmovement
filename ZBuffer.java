@@ -1,12 +1,9 @@
 import java.util.*;
 public class ZBuffer {
     public static ArrayList<ZObject> sortZ(ArrayList<ZObject> p2objects) {
-        ArrayList<ZObject> pobjects = new ArrayList<ZObject>();
-        pobjects.addAll(p2objects);
-        ArrayList<ZObject> objects = new ArrayList<ZObject>();
-        double previous = -100000000;
+        //double previous = -100000000;
         //double greatestz;
-        ZObject largest = new ZObject();
+        /*ZObject largest = new ZObject();
         int besti = 0;
         objects.add(pobjects.get(0));
         pobjects.remove(0);
@@ -20,7 +17,11 @@ public class ZBuffer {
                     break;
                 }
             }
-        }
-        return objects;
+        }*/
+        
+        
+        Collections.sort(p2objects);
+        //Collections.reverse(p2objects);
+        return p2objects;
     } 
 }

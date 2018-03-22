@@ -12,7 +12,7 @@ public class init {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //build map
-        Map map = MapGen.generate(15);
+        Map map = MapGen.generate(20);
         //cube:
         /*ArrayList<Point> points = new ArrayList<Point>();
         points.add(new Point(-2,-2,6));

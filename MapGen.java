@@ -12,7 +12,7 @@ public class MapGen {
             }
         }
         //Algorithm for building hills
-        /*for (int w=1; w<map[0].length-1; w++) {
+        for (int w=1; w<map[0].length-1; w++) {
             for (int l=1; l<map[0][0].length-1; l++) {
                 double seed = Math.random(); // random seed
                 double weight = (depth[w+1][l+1]+depth[w+1][l]+depth[w][l+1]+depth[w-1][l]+depth[w-1][l+1]+depth[w-1][l-1]+depth[w][l-1]+depth[w+1][l-1])/8; // surrounding blocks
@@ -20,7 +20,7 @@ public class MapGen {
                 map[4-value][w][l] = 1;
                 depth[w][l] = 4-value;
             }
-        }*/
+        }
         for (int w=0; w<map[0].length; w++) {
             for (int l=0; l<map[0][0].length; l++) {
                 map[0][w][l] = 0;
@@ -63,12 +63,12 @@ public class MapGen {
         }*/        
         
         //RIPPLE EQUATION
-        for (int w=0; w<map[0].length; w++) {
+        /*for (int w=0; w<map[0].length; w++) {
             for (int l=0; l<map[0][0].length; l++) {
                 map[Math.abs((int)(3*(Math.sin(10*(Math.pow(l,2)+Math.pow(w,2))))+.5))][w][l] = 1;
                 //System.out.println(Math.sin(10*(Math.pow(l,2)+Math.pow(w,2))));
             }
-        }      
+        }*/      
         
         return new Map(map, depth);
     }
