@@ -44,7 +44,7 @@ public class init {
         plane.redraw();
         frame.addKeyListener(new Listener(plane, mousethread));
         //frame.getContentPane().setBackground(Color.CYAN);
-        frame.getContentPane().setBackground(Color.darkGray);
+        frame.getContentPane().setBackground(Color.CYAN);
         //STARTING MOUSE SCANNER
         (new Thread(mousethread)).start();
         //HIDING CURSOR
