@@ -24,7 +24,7 @@ public class drawingPlane extends JComponent{
         map = m;
         depth = de;
         boolean dcheck;
-        /*long mapStartTime = System.nanoTime();
+        long mapStartTime = System.nanoTime();
         for (int d=0;d<map.length;d++) {
             for (int w=0;w<map[0].length;w++) {
                 for (int l=0;l<map[0][0].length;l++) {
@@ -38,8 +38,8 @@ public class drawingPlane extends JComponent{
                 }
             }
         }        
-        System.out.println("MAP GEN TOOK: " + (System.nanoTime()-mapStartTime)/1000000000.0 + " seconds");*/
-        pzobjects = fileLoading.loadOBJ("minicooper.txt");
+        System.out.println("MAP GEN TOOK: " + (System.nanoTime()-mapStartTime)/1000000000.0 + " seconds");
+        //pzobjects = fileLoading.loadOBJ("minicooper.txt");
         //this.setDoubleBuffered(true);
     }
     
@@ -55,12 +55,12 @@ public class drawingPlane extends JComponent{
         double[] temp;
         //ZBUFFER
         //SORT EDGES AND POLYGONS BY Z
-        long zsortstartTime = System.nanoTime();
+        //long zsortstartTime = System.nanoTime();
         ArrayList<ZObject> zobjects = ZBuffer.sortZ(pzobjects);
-        System.out.println("ZBUFFER SORT TOOK: " + (System.nanoTime()-zsortstartTime)/1000000000.0 + " seconds");        
-        System.out.println("Amount of rendered objects in plane: " + zobjects.size());
-        System.out.println("Amount of unrendered objects in plane: " + pzobjects.size());
-        long drawstartTime = System.nanoTime();
+        //System.out.println("ZBUFFER SORT TOOK: " + (System.nanoTime()-zsortstartTime)/1000000000.0 + " seconds");        
+        //System.out.println("Amount of rendered objects in plane: " + zobjects.size());
+        //System.out.println("Amount of unrendered objects in plane: " + pzobjects.size());
+        //long drawstartTime = System.nanoTime();
         for (ZObject z : zobjects) {
             if (z.getType().equals("Vector")) {
                 g.setColor(Color.BLACK);
@@ -121,12 +121,12 @@ public class drawingPlane extends JComponent{
             }
         }
         //System.out.println("Frame generation took " + (System.nanoTime()-startTime));
-        System.out.println("FRAME DRAW TOOK: " + (System.nanoTime()-drawstartTime)/1000000000.0 + " seconds");             
+        //System.out.println("FRAME DRAW TOOK: " + (System.nanoTime()-drawstartTime)/1000000000.0 + " seconds");             
     }
     
     
     public void move(char dir, double dis) {
-        long moveStartTime = System.nanoTime();
+        //long moveStartTime = System.nanoTime();
         ArrayList<ZObject> tempzobj = new ArrayList<ZObject>();
         double xdist = 0;
         double ydist = 0;
@@ -159,11 +159,11 @@ public class drawingPlane extends JComponent{
             }
         }
         pzobjects = tempzobj;
-        System.out.println("TRANSLATION MOVEMENT TOOK: " + (System.nanoTime()-moveStartTime)/1000000000.0 + " seconds");     
+        //System.out.println("TRANSLATION MOVEMENT TOOK: " + (System.nanoTime()-moveStartTime)/1000000000.0 + " seconds");     
         redraw();
     }
     public void look(char ax, double angle) {
-        long lookStartTime = System.nanoTime();
+        //long lookStartTime = System.nanoTime();
         ArrayList<ZObject> tempzobj = new ArrayList<ZObject>();
         ArrayList<ZObject> spzobjects = new ArrayList<ZObject>();
         spzobjects.addAll(pzobjects);
@@ -186,8 +186,8 @@ public class drawingPlane extends JComponent{
             }
         }
         pzobjects = tempzobj;
-        System.out.println("TRANSFORMED OBJECT COUNT: " + tempzobj.size());
-        System.out.println("ROTATION MOVEMENT TOOK: " + (System.nanoTime()-lookStartTime)/1000000000.0 + " seconds");          
+        //System.out.println("TRANSFORMED OBJECT COUNT: " + tempzobj.size());
+        //System.out.println("ROTATION MOVEMENT TOOK: " + (System.nanoTime()-lookStartTime)/1000000000.0 + " seconds");          
         redraw();
     }
     //double[] trreturned = manipulate.rotate(trvector, axis, angle);

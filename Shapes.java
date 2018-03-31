@@ -28,7 +28,8 @@ public class Shapes {
         vectors.add(new Vector(points.get(6),points.get(7)));
         //GENERATE POLYGONS
         ArrayList<Polygon> polygons = new ArrayList<Polygon>();
-        Color co = new Color((int)(Math.random()*256),(int)(Math.random()*256),(int)(Math.random()*256));
+        //Color co = new Color((int)(Math.random()*256),(int)(Math.random()*256),(int)(Math.random()*256));
+        Color co = new Color(0,75+((int)(Math.random()*100)),0);
         polygons.add(new Polygon(points.get(0),points.get(1),points.get(4),co));
         polygons.add(new Polygon(points.get(1),points.get(3),points.get(5),co));
         polygons.add(new Polygon(points.get(4),points.get(5),points.get(6),co));
