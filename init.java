@@ -12,7 +12,7 @@ public class init {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //build map
-        Map map = MapGen.generate(20);
+        Map map = MapGen.generate(50);
         //cube:
         /*ArrayList<Point> points = new ArrayList<Point>();
         points.add(new Point(-2,-2,6));
@@ -47,6 +47,7 @@ public class init {
         frame.getContentPane().setBackground(Color.CYAN);
         //STARTING MOUSE SCANNER
         (new Thread(mousethread)).start();
+        (new Thread(new FrameLimiterThread(plane))).start();
         //HIDING CURSOR
         BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
         Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");

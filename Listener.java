@@ -11,22 +11,22 @@ public class Listener extends KeyAdapter {
         int key = e.getKeyCode();
         //System.out.println("GOT KEY PRESS:" + key);
         if (key == KeyEvent.VK_A) {
-            current.move('x', .1);
+            current.move('x', 2.0);
         }
         if (key == KeyEvent.VK_D) {
-            current.move('x', -.1);
+            current.move('x',-2.0);
         }
         if (key == KeyEvent.VK_W) {
-            current.move('z', -.1);
+            current.move('z', -2.0);
         }
         if (key == KeyEvent.VK_S) {
-            current.move('z', .1);
+            current.move('z', 2.0);
         }
         if (key == KeyEvent.VK_SPACE) {
-            current.move('y', .1);
+            current.move('y', 2.0);
         }
         if (key == KeyEvent.VK_CONTROL) {
-            current.move('y', -.1);
+            current.move('y', -2.0);
         }
         if (key == KeyEvent.VK_Q) {
             current.look('z', .1);
